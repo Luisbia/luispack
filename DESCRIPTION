@@ -1,11 +1,13 @@
 Package: luispack
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: MIT + file LICENSE
+Title: Set of personal functions that are handy
+Version: 0.0.0.1
+Authors: Luis Biedma <luis.biedma@ec.europa.eu> 
+Description: Ggplot palettes, get eurostat data, export and convert utilities
+License: MIT
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
+Imports: 
+    DT,
+    ggplot2,
+    openxlsx

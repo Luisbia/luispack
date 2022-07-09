@@ -4,12 +4,8 @@
 \name{luispack-package}
 \alias{luispack}
 \alias{luispack-package}
-\title{luispack: What the Package Does (One Line, Title Case)}
+\title{luispack: Set of personal functions that are handy}
 \description{
-What the package does (one paragraph).
-}
-\author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
-
+Ggplot palettes, get eurostat data, export and convert utilities
 }
 \keyword{internal}
