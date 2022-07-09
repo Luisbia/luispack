@@ -3,3 +3,4 @@
 export(csv_to_parquet)
 export(show_DT)
 export(show_in_excel)
+export(xlsx_to_csv)

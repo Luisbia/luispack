@@ -9,6 +9,13 @@
 #'
 #' csv_to_parquet("where_my_csv_are_stored")
 csv_to_parquet<- function(dir){
+  pkg <- c("data.table","arrow","stringr")
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    stop(
+      paste0("Package" ,pkg, " must be installed to use this function."),
+      call. = FALSE
+    )
+  }
   list_csv <- list.files (path = dir,
                           pattern = glob2rx("*csv$"),
                           full.names = TRUE)

@@ -10,6 +10,12 @@
 #' show_DT(mtcars)
 #'
 show_DT <- function(x){
+  if (!requireNamespace("DT", quietly = TRUE)) {
+    stop(
+      "Package \"pkg\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
   DT::datatable(x, filter = "top", class = "stripe hover", extensions = "Buttons",
                 options = list(  lengthMenu = list(c(20, -1), c("20", "All")),
                                  pageLength = 20, dom = "Blfrtip", buttons = c("excel"))

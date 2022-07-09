@@ -10,7 +10,7 @@ csv_to_parquet(dir)
 \item{dir}{}
 }
 \value{
-csv files are read with data.table and converted to parquet with arrow. The filenames are the same but adding a suffix .parquet
+csv files are read with data.table and converted to parquet with arrow. The filenames are the same but replacing csv with parquet
 }
 \description{
 A function to convert csv files to parquet files

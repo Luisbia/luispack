@@ -12,4 +12,6 @@ Imports:
     data.table,
     DT,
     ggplot2,
-    openxlsx
+    openxlsx,
+    rio,
+    stringr
