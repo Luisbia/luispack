@@ -10,7 +10,7 @@ show_DT(x)
 \item{x}{a data frame}
 }
 \value{
-a DT table
+DT table
 }
 \description{
 Create an HTML interactive table with DT from a data frame
