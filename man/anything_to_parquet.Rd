@@ -2,14 +2,14 @@
 % Please edit documentation in R/anything_to_parquet.R
 \name{anything_to_parquet}
 \alias{anything_to_parquet}
-\title{A function to convert csv files to parquet files}
+\title{A function to convert most common files to parquet files}
 \usage{
 anything_to_parquet(dir, extension, recursive = FALSE)
 }
 \arguments{
 \item{dir}{folder in which the files to be converted are stored}
 
-\item{extension}{extension of the files to be converted}
+\item{extension}{extension of the files to be converted, for example (.xlsx)}
 
 \item{recursive}{whether lo kook recursively in sub-folders, FALSE by default}
 }
@@ -17,9 +17,9 @@ anything_to_parquet(dir, extension, recursive = FALSE)
 csv files are read with rio and converted to parquet with arrow. The file names are the same but replacing the extention
 }
 \description{
-A function to convert csv files to parquet files
+A function to convert most common files to parquet files
 }
 \examples{
 
-anything_to_parquet("E:/test","csv", recursive = TRUE)
+anything_to_parquet("E:/test",".csv", recursive = TRUE)
 }

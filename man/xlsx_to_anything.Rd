@@ -7,7 +7,11 @@
 xlsx_to_anything(dir, extension, recursive = FALSE)
 }
 \arguments{
-\item{dir}{}
+\item{dir}{older in which the excel files to be converted are stored}
+
+\item{extension}{extension to which the files will be converted (for example,".csv")}
+
+\item{recursive}{whether lo kook recursively in sub-folders, FALSE by default}
 }
 \value{
 xlsx files are converted with rio. The filenames are the same but replacing xlsx by the chosen format.
@@ -17,5 +21,5 @@ A function to convert xlsx files to other formats
 }
 \examples{
 
-xlsx_to_anything("E:/test","csv",recursive = TRUE)
+xlsx_to_anything("E:/test",".csv",recursive = TRUE)
 }

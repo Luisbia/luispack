@@ -1,13 +1,15 @@
 #' A function to convert xlsx files to other formats
 #'
-#' @param dir
+#' @param dir older in which the excel files to be converted are stored
+#' @param extension extension to which the files will be converted (for example,".csv")
+#' @param recursive whether lo kook recursively in sub-folders, FALSE by default
 #'
 #' @return xlsx files are converted with rio. The filenames are the same but replacing xlsx by the chosen format.
 #' @export
 #'
 #' @examples
 #'
-#' xlsx_to_anything("E:/test","csv",recursive = TRUE)
+#' xlsx_to_anything("E:/test",".csv",recursive = TRUE)
 xlsx_to_anything<- function(dir, extension,recursive = FALSE){
   pkg <- c("rio","stringr")
   if (!requireNamespace(pkg, quietly = TRUE)) {
