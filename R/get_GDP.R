@@ -54,3 +54,35 @@ get_quarterly_GDP <- function(na_item_sel = "B1GQ",
                                    label=FALSE)
   return(dt)}
 
+#' Get a dataframe with the latest Eurobase regional GDP
+#'
+#' @param unit_sel which unit, all by default. Options are "MIO_EUR","EUR_HAB","	EUR_HAB_EU27_2020", "MIO_NAC", "MIO_PPS_EU27_2020", "PPS_EU27_2020_HAB","	PPS_HAB_EU27_2020".
+#'
+#'
+#' @return a data.frame/data.table
+#' @export
+#'
+#' @examples
+#' dt<- get_regional_GDP(unit_sel= c("MIO_EUR","EUR_HAB"))
+get_regional_GDP <- function(unit_sel =c("MIO_EUR",
+                                         "EUR_HAB",
+                                         "EUR_HAB_EU27_2020",
+                                         "MIO_NAC",
+                                         "MIO_PPS_EU27_2020",
+                                         "PPS_EU27_2020_HAB",
+                                         "PPS_HAB_EU27_2020"))
+  {
+
+  if (!requireNamespace("restatapi", quietly = TRUE)) {
+    stop(
+      "Package \"restatapi\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
+  dt<-restatapi::get_eurostat_data("nama_10r_3gdp",
+                                   filters=list(unit = unit_sel),
+                                   label=FALSE)
+  dt<- dplyr::left_join(luispack::NUTS_2021,dt)
+  return(dt)}
+
+
