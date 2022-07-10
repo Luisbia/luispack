@@ -12,7 +12,7 @@
 show_DT <- function(x){
   if (!requireNamespace("DT", quietly = TRUE)) {
     stop(
-      "Package \"pkg\" must be installed to use this function.",
+      "Package \"DT\" must be installed to use this function.",
       call. = FALSE
     )
   }

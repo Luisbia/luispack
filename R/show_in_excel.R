@@ -10,7 +10,7 @@
 show_in_excel <- function(.data){
   if (!requireNamespace("openxlsx", quietly = TRUE)) {
     stop(
-      "Package \"pkg\" must be installed to use this function.",
+      "Package \"openxlsx\" must be installed to use this function.",
       call. = FALSE
     )
   }

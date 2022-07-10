@@ -13,5 +13,6 @@ Imports:
     DT,
     ggplot2,
     openxlsx,
+    restatapi,
     rio,
     stringr
