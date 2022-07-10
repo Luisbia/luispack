@@ -10,9 +10,17 @@ RoxygenNote: 7.2.0
 Imports: 
     arrow,
     data.table,
+    dplyr,
     DT,
+    eurostat,
     ggplot2,
+    janitor,
+    lubridate,
     openxlsx,
+    purrr,
+    readr,
     restatapi,
     rio,
-    stringr
+    stringr,
+    tibble,
+    tidyr

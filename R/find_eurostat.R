@@ -1,0 +1,91 @@
+#' Find Eurostat datasets codes
+#'
+#' @param x a string with *'s
+#'
+#' @return a data frame
+#' @export
+#'
+#' @examples
+#' df<-find_eurostat_dataset("nama_10r*")
+#'
+find_eurostat_dataset <- function(x) {
+  library(magrittr)
+  df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
+                          show_col_types = FALSE) %>%
+    tibble::as_tibble() %>%
+    janitor::clean_names() %>%
+    dplyr::filter(type == "dataset" &
+             stringr::str_detect(code, glob2rx(x))) %>%
+    dplyr::select(code) %>%
+    dplyr::distinct()
+
+  return(df)
+}
+
+#' Find Eurostat datasets codes based on keywords in the description
+#'
+#' @param x a string with *s
+#'
+#' @return a data frame
+#' @export
+#'
+#' @examples
+#' df <- find_eurostat_desc("*GDP*")
+
+find_eurostat_desc <- function(x) {
+  library(magrittr)
+  df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
+                          show_col_types = FALSE) %>%
+    tibble::as_tibble() %>%
+    janitor::clean_names() %>%
+    dplyr::filter(type == "dataset" &
+             stringr::str_detect(title, glob2rx(x)))
+
+  return(df)
+}
+
+#' A function to get eurostat datasets updated after a certain date
+#'
+#' @param x a date in yyyy-mm-dd format
+#'
+#' @return a data frame
+#' @export
+#'
+#' @examples
+#' july_2022 <-find_eurostat_date("2022-07-01")
+find_eurostat_date <- function(x) {
+  library(magrittr)
+  df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
+                          show_col_types = FALSE) %>%
+    tibble::as_tibble() %>%
+    janitor::clean_names() %>%
+    dplyr::filter(type == "dataset") %>%
+    dplyr::mutate(last_update_of_data = lubridate::dmy(last_update_of_data)) %>%
+    dplyr::filter(last_update_of_data >= x)
+  return(df)
+}
+
+#' get most common national accounts dictionaries
+#' Get in a dataframe the labels of the most common dictionaries used in national accounts
+#'
+#' @return a dataframe
+#' @export
+#'
+#' @examples
+#' df<- get_eurostat_label_codes()
+#'
+get_eurostat_label_codes <- function() {
+  labels<-    tibble(
+    dictionary = c("na_item", "nace_r2", "geo", "asset10", "coicop"),
+    data = list(
+      eurostat::get_eurostat_dic("na_item"),
+      eurostat::get_eurostat_dic("nace_r2"),
+      eurostat::get_eurostat_dic("geo"),
+      eurostat::get_eurostat_dic("asset10"),
+      eurostat::get_eurostat_dic("coicop")
+    )
+  ) %>%
+    tidyr::unnest(cols=c(data))
+
+  return(labels)
+}
