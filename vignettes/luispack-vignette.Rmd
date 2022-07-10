@@ -1,0 +1,35 @@
+---
+title: "luispack-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{luispack-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(luispack)
+```
+
+This vignette provides a description of the functions included in `{luispack}`. 
+
+## Conversion functions
+
+### `anything_to_parquet`
+
+The objective of the function is to convert files in any format that can be handled by `{rio}` into the `parquet` format. The function has three arguments:
+
+- The folder in which to look for the files, for example "H:/MyDocuments".
+
+- The format of the files to look for, for example ".csv" (**with the dot!**).
+
+- If to look at sub-folder. By the default is no, to change it type **recursive = TRUE**.
+
+

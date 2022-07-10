@@ -9,7 +9,7 @@
 #'
 #' @examples
 #'
-#' anything_to_parquet("E:/test","csv", recursive = TRUE)
+#' anything_to_parquet("E:/test",".csv", recursive = TRUE)
 anything_to_parquet<- function(dir, extension, recursive = FALSE){
   pkg <- c("rio","arrow","stringr")
   if (!requireNamespace(pkg, quietly = TRUE)) {
@@ -25,7 +25,7 @@ anything_to_parquet<- function(dir, extension, recursive = FALSE){
 
   anything_to_parquet <- function(file) {
     data <- rio::import(file)
-    arrow::write_parquet(data,stringr::str_replace(paste0(file),paste0(".",extension,"$"),".parquet"))
+    arrow::write_parquet(data,stringr::str_replace(paste0(file),paste0(extension,"$"),".parquet"))
   }
 
   purrr::walk(list_files, anything_to_parquet)

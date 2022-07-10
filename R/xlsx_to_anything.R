@@ -17,13 +17,13 @@ xlsx_to_anything<- function(dir, extension,recursive = FALSE){
     )
   }
   list_xlsx <- list.files (path = dir,
-                          pattern = glob2rx("*xlsx$"),
+                          pattern = glob2rx("*.xlsx$"),
                           full.names = TRUE,
                           recursive = recursive)
 
   xlsx_to_anything <- function(file) {
     data <- rio::import (file)
-    rio::export(data,stringr::str_replace(paste0(file),".xlsx$",paste0(".",extension) ))
+    rio::export(data,stringr::str_replace(paste0(file),".xlsx$",paste0(extension) ))
   }
 
   purrr::walk(list_xlsx, xlsx_to_anything)
