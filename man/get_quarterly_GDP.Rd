@@ -23,8 +23,8 @@ get_quarterly_GDP(
 a data.frame/data.table
 }
 \description{
-Get a dataframe with the latest Eurobase quarterly GDP
+This function downloads from Eurobase the latest quarterly GDP data and other variables in the table namq_10_gdp for the unit and adjustment declared by the user.
 }
 \examples{
-dt<- get_quarterly_GDP(na_item_sel=c("B1GQ", "D1"), unit_sel= c("CP_MEUR","CP_MNAC"))
+dt<- get_quarterly_GDP(na_item_sel=c("B1GQ"), unit_sel= c("CP_MEUR","CP_MNAC"), s_adj_sel = "SCA")
 }

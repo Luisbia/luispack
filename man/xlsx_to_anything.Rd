@@ -2,7 +2,7 @@
 % Please edit documentation in R/xlsx_to_anything.R
 \name{xlsx_to_anything}
 \alias{xlsx_to_anything}
-\title{A function to convert xlsx files to other formats}
+\title{Convert xlsx files to other formats}
 \usage{
 xlsx_to_anything(dir, extension, recursive = FALSE)
 }
@@ -17,7 +17,7 @@ xlsx_to_anything(dir, extension, recursive = FALSE)
 xlsx files are converted with rio. The filenames are the same but replacing xlsx by the chosen format.
 }
 \description{
-A function to convert xlsx files to other formats
+Convert xlsx files to almost any other format. Works in sub-folders if recursive is set to TRUE. Original files are not deleted in case they want to be kept and for precautionary reasons.
 }
 \examples{
 

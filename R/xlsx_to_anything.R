@@ -1,4 +1,8 @@
-#' A function to convert xlsx files to other formats
+#' Convert xlsx files to other formats
+#'
+#' @description
+#'
+#'Convert xlsx files to almost any other format. Works in sub-folders if recursive is set to TRUE. Original files are not deleted in case they want to be kept and for precautionary reasons.
 #'
 #' @param dir older in which the excel files to be converted are stored
 #' @param extension extension to which the files will be converted (for example,".csv")
@@ -11,14 +15,7 @@
 #'
 #' xlsx_to_anything("E:/test",".csv",recursive = TRUE)
 xlsx_to_anything<- function(dir, extension,recursive = FALSE){
-  pkg <- c("rio","stringr")
-  if (!requireNamespace(pkg, quietly = TRUE)) {
-    stop(
-      paste0("Package " ,pkg, " must be installed to use this function."),
-      call. = FALSE
-    )
-  }
-  list_xlsx <- list.files (path = dir,
+    list_xlsx <- list.files (path = dir,
                           pattern = glob2rx("*.xlsx$"),
                           full.names = TRUE,
                           recursive = recursive)

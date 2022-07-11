@@ -1,4 +1,8 @@
-#' A function to convert most common files to parquet files
+#' Convert most common files to parquet files
+#'
+#' @description
+#'
+#' A function to convert most common formats to parquet. Specially useful for big files with several columns.
 #'
 #' @param dir folder in which the files to be converted are stored
 #' @param extension extension of the files to be converted, for example (.xlsx)
@@ -11,13 +15,6 @@
 #'
 #' anything_to_parquet("E:/test",".csv", recursive = TRUE)
 anything_to_parquet<- function(dir, extension, recursive = FALSE){
-  pkg <- c("rio","arrow","stringr")
-  if (!requireNamespace(pkg, quietly = TRUE)) {
-    stop(
-      paste0("Package " ,pkg, " must be installed to use this function."),
-      call. = FALSE
-    )
-  }
   list_files <- list.files (path = dir,
                           pattern = glob2rx(paste0("*",extension,"$")),
                           full.names = TRUE,

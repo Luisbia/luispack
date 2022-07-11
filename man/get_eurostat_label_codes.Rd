@@ -11,8 +11,7 @@ get_eurostat_label_codes()
 a dataframe
 }
 \description{
-get most common national accounts dictionaries
-Get in a dataframe the labels of the most common dictionaries used in national accounts
+This function collects several Eurostat dictionaries frequently used in National Accounts. The main purpose is to get the labels of the codes.
 }
 \examples{
 df<- get_eurostat_label_codes()

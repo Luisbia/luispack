@@ -34,9 +34,9 @@ scale_fill_theme2 <- function () {
 #'
 #'
 #' @examples
-#' ggpplot2::ggplot(mtcars,aes(cyl,mpg, colour=as.factor(cyl)))+
+#' ggplot2::ggplot(mtcars,aes(cyl,mpg, colour=as.factor(cyl)))+
 #' geom_point(size=3)+
-#'   scale_colour_theme2()
+#' scale_colour_theme2()
 
 scale_colour_theme2 <- function () {
   theme2_pal <- c("#af4b91",#theme2

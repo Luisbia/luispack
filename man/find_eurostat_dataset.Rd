@@ -13,7 +13,7 @@ find_eurostat_dataset(x)
 a data frame
 }
 \description{
-Find Eurostat datasets codes
+This function looks at eurostat data sets codes and finds data sets that match the string provided
 }
 \examples{
 df<-find_eurostat_dataset("nama_10r*")

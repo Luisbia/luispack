@@ -13,9 +13,9 @@ show_in_excel(.data)
 an excel file in a temporary folder
 }
 \description{
-Export to excel a data frame
+For closer inspection of small data frames this functions exports it to excel and opens the file.
 }
 \examples{
 
-show_in_excel(mtcars)
+show_in_excel(NUTS_2021)
 }

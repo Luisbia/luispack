@@ -13,7 +13,7 @@ find_eurostat_desc(x)
 a data frame
 }
 \description{
-Find Eurostat datasets codes based on keywords in the description
+This function looks at eurostat data sets descriptions and finds data sets that match the string provided
 }
 \examples{
 df <- find_eurostat_desc("*GDP*")

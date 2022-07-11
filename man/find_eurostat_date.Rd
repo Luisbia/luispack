@@ -13,7 +13,7 @@ find_eurostat_date(x)
 a data frame
 }
 \description{
-A function to get eurostat datasets updated after a certain date
+This function looks at eurostat data sets last updated date and filter those updated after the date provided by the user
 }
 \examples{
 july_2022 <-find_eurostat_date("2022-07-01")

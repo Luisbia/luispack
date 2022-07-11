@@ -15,7 +15,7 @@ get_annual_GDP(na_item_sel = "B1GQ", unit_sel = "CP_MEUR")
 a data.frame/data.table
 }
 \description{
-Get a dataframe with the latest Eurobase annual GDP
+This function downloads from Eurobase the latest GDP data and other variables in the table nama_10_gdp for the unit declared by the user.
 }
 \examples{
 dt<- get_annual_GDP(na_item_sel=c("B1GQ", "D1"), unit_sel= c("CP_MEUR","CP_MNAC"))

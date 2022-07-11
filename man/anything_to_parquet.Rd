@@ -2,7 +2,7 @@
 % Please edit documentation in R/anything_to_parquet.R
 \name{anything_to_parquet}
 \alias{anything_to_parquet}
-\title{A function to convert most common files to parquet files}
+\title{Convert most common files to parquet files}
 \usage{
 anything_to_parquet(dir, extension, recursive = FALSE)
 }
@@ -17,7 +17,7 @@ anything_to_parquet(dir, extension, recursive = FALSE)
 csv files are read with rio and converted to parquet with arrow. The file names are the same but replacing the extention
 }
 \description{
-A function to convert most common files to parquet files
+A function to convert most common formats to parquet. Specially useful for big files with several columns.
 }
 \examples{
 

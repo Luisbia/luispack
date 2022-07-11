@@ -2,7 +2,7 @@
 % Please edit documentation in R/show_DT.R
 \name{show_DT}
 \alias{show_DT}
-\title{Create an HTML interactive table with DT from a data frame}
+\title{Create an HTML interactive table with DT}
 \usage{
 show_DT(x)
 }
@@ -13,10 +13,10 @@ show_DT(x)
 DT table
 }
 \description{
-Create an HTML interactive table with DT from a data frame
+An intercative HTML table with some fancy options (filter,sort,export to excel) is generated from a data frame.
 }
 \examples{
 
-show_DT(mtcars)
+show_DT(NUTS_2021)
 
 }

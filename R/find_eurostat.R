@@ -1,6 +1,6 @@
 #' Find Eurostat datasets codes
 #'
-#'@description
+#' @description
 #'This function looks at eurostat data sets codes and finds data sets that match the string provided
 #'
 #' @param x a string with *'s
@@ -12,7 +12,6 @@
 #' df<-find_eurostat_dataset("nama_10r*")
 #'
 find_eurostat_dataset <- function(x) {
-  library(magrittr)
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%
     tibble::as_tibble() %>%
@@ -27,7 +26,7 @@ find_eurostat_dataset <- function(x) {
 
 #' Find Eurostat datasets codes based on keywords in the description
 #'
-#'@description
+#' @description
 #'This function looks at eurostat data sets descriptions and finds data sets that match the string provided
 #'
 #' @param x a string with *s
@@ -39,7 +38,6 @@ find_eurostat_dataset <- function(x) {
 #' df <- find_eurostat_desc("*GDP*")
 
 find_eurostat_desc <- function(x) {
-  library(magrittr)
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%
     tibble::as_tibble() %>%
@@ -52,7 +50,7 @@ find_eurostat_desc <- function(x) {
 
 #' A function to get eurostat datasets updated after a certain date
 #'
-#'@description
+#' @description
 #'This function looks at eurostat data sets last updated date and filter those updated after the date provided by the user
 #'
 #' @param x a date in yyyy-mm-dd format
@@ -63,7 +61,6 @@ find_eurostat_desc <- function(x) {
 #' @examples
 #' july_2022 <-find_eurostat_date("2022-07-01")
 find_eurostat_date <- function(x) {
-  library(magrittr)
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%
     tibble::as_tibble() %>%
@@ -77,7 +74,7 @@ find_eurostat_date <- function(x) {
 #' get most common national accounts dictionaries
 #' Get in a dataframe the labels of the most common dictionaries used in national accounts
 #'
-#'@description
+#' @description
 #'This function collects several Eurostat dictionaries frequently used in National Accounts. The main purpose is to get the labels of the codes.
 #' @return a dataframe
 #' @export

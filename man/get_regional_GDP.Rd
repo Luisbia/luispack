@@ -16,7 +16,7 @@ get_regional_GDP(
 a data.frame/data.table
 }
 \description{
-Get a dataframe with the latest Eurobase regional GDP
+This function downloads from Eurobase the latest regional GDP data in the table nama_10r_3gdp for the unit declared by the user.
 }
 \examples{
 dt<- get_regional_GDP(unit_sel= c("MIO_EUR","EUR_HAB"))

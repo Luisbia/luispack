@@ -1,6 +1,6 @@
 #' Get a dataframe with the latest Eurobase annual GDP
 #'
-#'@description
+#' @description
 #'This function downloads from Eurobase the latest GDP data and other variables in the table nama_10_gdp for the unit declared by the user.
 #' @param na_item_sel which na_item to download, B1GQ by default
 #' @param unit_sel which unit, CP_MEUR by default
@@ -13,13 +13,7 @@
 get_annual_GDP <- function(na_item_sel = "B1GQ",
                              unit_sel ="CP_MEUR")
   {
-  if (!requireNamespace("eurostat", quietly = TRUE)) {
-    stop(
-      "Package \"eurostat\" must be installed to use this function.",
-      call. = FALSE
-    )
-  }
-  dt<-eurostat::get_eurostat("nama_10_gdp",
+   dt<-eurostat::get_eurostat("nama_10_gdp",
                                    filters=list(na_item=na_item_sel,
                                                 unit = unit_sel,
                                    label=FALSE))
@@ -29,7 +23,7 @@ get_annual_GDP <- function(na_item_sel = "B1GQ",
 
 #' Get a dataframe with the latest Eurobase quarterly GDP
 #'
-#'@description
+#' @description
 #'This function downloads from Eurobase the latest quarterly GDP data and other variables in the table namq_10_gdp for the unit and adjustment declared by the user.
 #' @param na_item_sel which na_item to download, B1GQ by default
 #' @param unit_sel which unit, CLV_PCH_PRE by default
@@ -46,12 +40,6 @@ get_quarterly_GDP <- function(na_item_sel = "B1GQ",
                                 unit_sel ="CLV_PCH_PRE",
                                 s_adj_sel="SCA"){
 
-  if (!requireNamespace("eurostat", quietly = TRUE)) {
-    stop(
-      "Package \"eurostat\" must be installed to use this function.",
-      call. = FALSE
-    )
-  }
   dt<-eurostat::get_eurostat("namq_10_gdp",
                                    filters=list(na_item=na_item_sel,
                                                 unit = unit_sel,
@@ -62,7 +50,7 @@ get_quarterly_GDP <- function(na_item_sel = "B1GQ",
 
 #' Get a dataframe with the latest Eurobase regional GDP
 #'
-#'#'@description
+#' @description
 #'This function downloads from Eurobase the latest regional GDP data in the table nama_10r_3gdp for the unit declared by the user.
 #'
 #' @param unit_sel which unit, all by default. Options are "MIO_EUR","EUR_HAB","	EUR_HAB_EU27_2020", "MIO_NAC", "MIO_PPS_EU27_2020", "PPS_EU27_2020_HAB","	PPS_HAB_EU27_2020".
@@ -82,12 +70,6 @@ get_regional_GDP <- function(unit_sel =c("MIO_EUR",
                                          "PPS_HAB_EU27_2020"))
   {
 
-  if (!requireNamespace("eurostat", quietly = TRUE)) {
-    stop(
-      "Package \"eurostat\" must be installed to use this function.",
-      call. = FALSE
-    )
-  }
   dt<-eurostat::get_eurostat("nama_10r_3gdp",
                              time_format = "num",
                                    filters=list(unit = unit_sel),
