@@ -12,6 +12,26 @@
 #' df<-find_eurostat_dataset("nama_10r*")
 #'
 find_eurostat_dataset <- function(x) {
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("readr","tibble","janitor","dplyr","stringr")
+
+  # Call the Function
+  Install_And_Load(Required_Packages)
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%
     tibble::as_tibble() %>%
@@ -38,6 +58,24 @@ find_eurostat_dataset <- function(x) {
 #' df <- find_eurostat_desc("*GDP*")
 
 find_eurostat_desc <- function(x) {
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("readr","tibble","janitor","dplyr","stringr")
+
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%
     tibble::as_tibble() %>%
@@ -61,6 +99,24 @@ find_eurostat_desc <- function(x) {
 #' @examples
 #' july_2022 <-find_eurostat_date("2022-07-01")
 find_eurostat_date <- function(x) {
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("readr","tibble","janitor","dplyr","stringr")
+
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%
     tibble::as_tibble() %>%
@@ -83,6 +139,24 @@ find_eurostat_date <- function(x) {
 #' df<- get_eurostat_label_codes()
 #'
 get_eurostat_label_codes <- function() {
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("tibble","janitor","dplyr","stringr","eurostat","tidyr")
+
   labels<-    tibble(
     dictionary = c("na_item", "nace_r2", "geo", "asset10", "coicop"),
     data = list(

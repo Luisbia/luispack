@@ -16,7 +16,28 @@
 #'                          geo = c("MT", "LU"),
 #'                          time = "2021-12-01")
 regacc_load_all_csv <- function(folder,geo,time){
-  library(magrittr)
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("rio", "data.table", "dplyr", "tidyr", "tibble","magrittr",
+                      "janitor","purrr","stringr")
+
+  # Call the Function
+  Install_And_Load(Required_Packages)
+
   df_list <-list.files (path = folder,
                         full.names = TRUE,
                         pattern = glob2rx("*xml.csv$"),

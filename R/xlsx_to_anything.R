@@ -15,7 +15,24 @@
 #'
 #' xlsx_to_anything("E:/test",".csv",recursive = TRUE)
 xlsx_to_anything<- function(dir, extension,recursive = FALSE){
-    list_xlsx <- list.files (path = dir,
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("rio", "purrr")
+   list_xlsx <- list.files (path = dir,
                           pattern = glob2rx("*.xlsx$"),
                           full.names = TRUE,
                           recursive = recursive)

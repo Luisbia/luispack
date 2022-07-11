@@ -7,6 +7,26 @@
 #' scale_fill_theme2()
 #'
 scale_fill_theme2 <- function () {
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("ggplot2" )
+
+  # Call the Function
+  Install_And_Load(Required_Packages)
   theme2_pal <- c("#af4b91",#theme2
                   "#466eb4",
                   "#b9c337",

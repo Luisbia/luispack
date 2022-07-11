@@ -13,6 +13,24 @@
 get_annual_GDP <- function(na_item_sel = "B1GQ",
                              unit_sel ="CP_MEUR")
   {
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("eurostat")
+
    dt<-eurostat::get_eurostat("nama_10_gdp",
                                    filters=list(na_item=na_item_sel,
                                                 unit = unit_sel,
@@ -39,6 +57,23 @@ get_annual_GDP <- function(na_item_sel = "B1GQ",
 get_quarterly_GDP <- function(na_item_sel = "B1GQ",
                                 unit_sel ="CLV_PCH_PRE",
                                 s_adj_sel="SCA"){
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("eurostat")
 
   dt<-eurostat::get_eurostat("namq_10_gdp",
                                    filters=list(na_item=na_item_sel,
@@ -69,7 +104,23 @@ get_regional_GDP <- function(unit_sel =c("MIO_EUR",
                                          "PPS_EU27_2020_HAB",
                                          "PPS_HAB_EU27_2020"))
   {
+  # Function to Install and Load R Packages
+  Install_And_Load <- function(Required_Packages)
+  {
+    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
 
+    if(length(Remaining_Packages))
+    {
+      install.packages(Remaining_Packages);
+    }
+    for(package_name in Required_Packages)
+    {
+      library(package_name,character.only=TRUE,quietly=TRUE);
+    }
+  }
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("eurostat","dplyr")
   dt<-eurostat::get_eurostat("nama_10r_3gdp",
                              time_format = "num",
                                    filters=list(unit = unit_sel),
