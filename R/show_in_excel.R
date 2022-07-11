@@ -6,7 +6,7 @@
 #'
 #' @examples
 #'
-#' show_in_excel(mtcars)
+#' show_in_excel(NUTS_2021)
 show_in_excel <- function(.data){
   if (!requireNamespace("openxlsx", quietly = TRUE)) {
     stop(

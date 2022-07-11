@@ -7,7 +7,7 @@
 #'
 #' @examples
 #'
-#' show_DT(mtcars)
+#' show_DT(NUTS_2021)
 #'
 show_DT <- function(x){
   if (!requireNamespace("DT", quietly = TRUE)) {

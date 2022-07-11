@@ -1,6 +1,6 @@
 #' NUTS 2021 classification
 #'
-#' The data corresponds to the data released by Eurostat in the year 2022 in the several datasets related to Regional Accounts. It consolidates all of them in a single table to make easier to combine them and adds some useful features like a country code, NUTS level, etc.
+#' A data frame with the NUTS 2021 codes and labels.
 #'
 #' @format A data.frame / data.table:
 #' \describe{

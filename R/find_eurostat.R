@@ -1,5 +1,8 @@
 #' Find Eurostat datasets codes
 #'
+#'@description
+#'This function looks at eurostat data sets codes and finds data sets that match the string provided
+#'
 #' @param x a string with *'s
 #'
 #' @return a data frame
@@ -24,6 +27,9 @@ find_eurostat_dataset <- function(x) {
 
 #' Find Eurostat datasets codes based on keywords in the description
 #'
+#'@description
+#'This function looks at eurostat data sets descriptions and finds data sets that match the string provided
+#'
 #' @param x a string with *s
 #'
 #' @return a data frame
@@ -45,6 +51,9 @@ find_eurostat_desc <- function(x) {
 }
 
 #' A function to get eurostat datasets updated after a certain date
+#'
+#'@description
+#'This function looks at eurostat data sets last updated date and filter those updated after the date provided by the user
 #'
 #' @param x a date in yyyy-mm-dd format
 #'
@@ -68,6 +77,8 @@ find_eurostat_date <- function(x) {
 #' get most common national accounts dictionaries
 #' Get in a dataframe the labels of the most common dictionaries used in national accounts
 #'
+#'@description
+#'This function collects several Eurostat dictionaries frequently used in National Accounts. The main purpose is to get the labels of the codes.
 #' @return a dataframe
 #' @export
 #'
