@@ -2,8 +2,7 @@
 % Please edit documentation in R/find_eurostat.R
 \name{get_eurostat_label_codes}
 \alias{get_eurostat_label_codes}
-\title{get most common national accounts dictionaries
-Get in a dataframe the labels of the most common dictionaries used in national accounts}
+\title{get most common national accounts dictionaries}
 \usage{
 get_eurostat_label_codes()
 }

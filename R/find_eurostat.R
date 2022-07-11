@@ -135,7 +135,6 @@ find_eurostat_date <- function(x) {
 }
 
 #' get most common national accounts dictionaries
-#' Get in a dataframe the labels of the most common dictionaries used in national accounts
 #'
 #' @description
 #'This function collects several Eurostat dictionaries frequently used in National Accounts. The main purpose is to get the labels of the codes.
