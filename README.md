@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of luispack is to centralise a list of useful functions and data used in Eurostat's Regional Accounts team. It is work in progress and functions are not very sophisticated but it helps to have evrything stored in a package instead of in several scripts stores who knows where.
+The goal of luispack is to centralise a list of useful functions and data used in Eurostat's Regional Accounts team. It is work in progress and functions are not very sophisticated but it helps to have everything stored in a package instead of in several scripts stores who knows where.
 
 ## Installation
 
