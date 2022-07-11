@@ -29,6 +29,8 @@ show_in_excel <- function(.data){
 
   # Specify the list of required packages to be installed and load
   Required_Packages=c("openxlsx")
+  Install_And_Load(Required_Packages)
+
   tmp <- paste0(tempfile(), ".xlsx")
   openxlsx::write.xlsx(.data,tmp)
   browseURL(tmp)

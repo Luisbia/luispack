@@ -32,6 +32,7 @@ find_eurostat_dataset <- function(x) {
 
   # Call the Function
   Install_And_Load(Required_Packages)
+
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%
     tibble::as_tibble() %>%
@@ -76,6 +77,9 @@ find_eurostat_desc <- function(x) {
   # Specify the list of required packages to be installed and load
   Required_Packages=c("readr","tibble","janitor","dplyr","stringr")
 
+  # Call the Function
+  Install_And_Load(Required_Packages)
+
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%
     tibble::as_tibble() %>%
@@ -117,6 +121,9 @@ find_eurostat_date <- function(x) {
   # Specify the list of required packages to be installed and load
   Required_Packages=c("readr","tibble","janitor","dplyr","stringr")
 
+  # Call the Function
+  Install_And_Load(Required_Packages)
+
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%
     tibble::as_tibble() %>%
@@ -156,6 +163,9 @@ get_eurostat_label_codes <- function() {
 
   # Specify the list of required packages to be installed and load
   Required_Packages=c("tibble","janitor","dplyr","stringr","eurostat","tidyr")
+
+  # Call the Function
+  Install_And_Load(Required_Packages)
 
   labels<-    tibble(
     dictionary = c("na_item", "nace_r2", "geo", "asset10", "coicop"),

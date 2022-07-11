@@ -15,7 +15,10 @@
 #'
 #' anything_to_parquet("E:/test",".csv", recursive = TRUE)
 anything_to_parquet<- function(dir, extension, recursive = FALSE){
-  # Function to Install and Load R Packages
+
+  # Specify the list of required packages to be installed and load
+  Required_Packages=c("arrow","rio","purrr")
+   # Function to Install and Load R Packages
   Install_And_Load <- function(Required_Packages)
   {
     Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
@@ -30,8 +33,8 @@ anything_to_parquet<- function(dir, extension, recursive = FALSE){
     }
   }
 
-  # Specify the list of required packages to be installed and load
-  Required_Packages=c("arrow","rio","purrr")
+  Install_And_Load(Required_Packages)
+
 
   list_files <- list.files (path = dir,
                           pattern = glob2rx(paste0("*",extension,"$")),

@@ -24,6 +24,7 @@ scale_fill_theme2 <- function () {
 
   # Specify the list of required packages to be installed and load
   Required_Packages=c("ggplot2" )
+  Install_And_Load(Required_Packages)
 
   # Call the Function
   Install_And_Load(Required_Packages)

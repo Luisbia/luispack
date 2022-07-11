@@ -32,6 +32,9 @@ xlsx_to_anything<- function(dir, extension,recursive = FALSE){
 
   # Specify the list of required packages to be installed and load
   Required_Packages=c("rio", "purrr")
+
+  Install_And_Load(Required_Packages)
+
    list_xlsx <- list.files (path = dir,
                           pattern = glob2rx("*.xlsx$"),
                           full.names = TRUE,

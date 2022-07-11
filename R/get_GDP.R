@@ -31,6 +31,9 @@ get_annual_GDP <- function(na_item_sel = "B1GQ",
   # Specify the list of required packages to be installed and load
   Required_Packages=c("eurostat")
 
+  # Call the Function
+  Install_And_Load(Required_Packages)
+
    dt<-eurostat::get_eurostat("nama_10_gdp",
                                    filters=list(na_item=na_item_sel,
                                                 unit = unit_sel,
@@ -74,6 +77,8 @@ get_quarterly_GDP <- function(na_item_sel = "B1GQ",
 
   # Specify the list of required packages to be installed and load
   Required_Packages=c("eurostat")
+  # Call the Function
+  Install_And_Load(Required_Packages)
 
   dt<-eurostat::get_eurostat("namq_10_gdp",
                                    filters=list(na_item=na_item_sel,
@@ -121,6 +126,9 @@ get_regional_GDP <- function(unit_sel =c("MIO_EUR",
 
   # Specify the list of required packages to be installed and load
   Required_Packages=c("eurostat","dplyr")
+  # Call the Function
+  Install_And_Load(Required_Packages)
+
   dt<-eurostat::get_eurostat("nama_10r_3gdp",
                              time_format = "num",
                                    filters=list(unit = unit_sel),

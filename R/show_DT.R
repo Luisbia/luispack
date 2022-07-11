@@ -31,6 +31,8 @@ show_DT <- function(x){
 
   # Specify the list of required packages to be installed and load
   Required_Packages=c("DT")
+  Install_And_Load(Required_Packages)
+
   DT::datatable(x, filter = "top", class = "stripe hover", extensions = "Buttons",
                 options = list(  lengthMenu = list(c(20, -1), c("20", "All")),
                                  pageLength = 20, dom = "Blfrtip", buttons = c("excel"))
