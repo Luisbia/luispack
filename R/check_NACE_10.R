@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-#'library(magrittr)
+#'library(tidyverse)
 #' df <- regacc_load_all_csv(
 #'folder = "D:/data/REGACC/csv",
 #'geo = c("AT"),

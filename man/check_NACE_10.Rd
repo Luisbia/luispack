@@ -20,7 +20,7 @@ a dataframe. If all pass are passed it will be empty.
 Check NACE A 10
 }
 \examples{
-library(magrittr)
+library(tidyverse)
 df <- regacc_load_all_csv(
 folder = "D:/data/REGACC/csv",
 geo = c("AT"),
