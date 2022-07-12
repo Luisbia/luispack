@@ -1,7 +1,7 @@
 #' Apply the new Eurostat palette to fill aesthetics in ggplot
 #'
 #' @examples
-#' library(ggplot2)
+#' library(tidyverse)
 #' ggplot(mtcars,aes(cyl,mpg, fill=as.factor(cyl)))+
 #' geom_col()+
 #' scale_fill_eurostat()
@@ -47,13 +47,10 @@ scale_fill_eurostat <- function () {
   ggplot2::scale_fill_manual(values = ec_colours)
 }
 
-#' Apply the new Eurostat palette to  colour aesthetics in ggplot
-#'
-#'
-#' @examples
-#' library(ggplot2)
+#' Apply the new Eurostat palette to colour aesthetics in ggplot
+#' library(tidyverse)
 #' ggplot(mtcars,aes(cyl,mpg, colour=as.factor(cyl)))+
-#' geom_point(size=3)+
+#' geom_point()+
 #' scale_colour_eurostat()
 
 scale_colour_eurostat <- function () {
@@ -95,6 +92,4 @@ scale_colour_eurostat <- function () {
 
   ggplot2::scale_colour_manual(values = ec_colours)
 }
-
-
 

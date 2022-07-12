@@ -2,16 +2,10 @@
 % Please edit documentation in R/scale_eurostat.R
 \name{scale_colour_eurostat}
 \alias{scale_colour_eurostat}
-\title{Apply the new Eurostat palette to  colour aesthetics in ggplot}
+\title{Apply the new Eurostat palette to colour aesthetics in ggplot}
 \usage{
 scale_colour_eurostat()
 }
 \description{
-Apply the new Eurostat palette to  colour aesthetics in ggplot
-}
-\examples{
-library(ggplot2)
-ggplot(mtcars,aes(cyl,mpg, colour=as.factor(cyl)))+
-geom_point(size=3)+
-scale_colour_eurostat()
+Apply the new Eurostat palette to colour aesthetics in ggplot
 }

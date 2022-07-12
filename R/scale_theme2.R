@@ -57,11 +57,11 @@ scale_fill_theme2 <- function () {
 #'
 #'
 #' @examples
-#' library(ggplot2)
-#' ggplot2::ggplot(mtcars,aes(cyl,mpg, colour=as.factor(cyl)))+
-#' geom_point(size=3)+
-#' scale_colour_theme2()
-
+#' library(tidyverse)
+#' ggplot(mtcars,aes(cyl,mpg, colour=as.factor(cyl)))+
+#' geom_point()+
+#' scale_colour_theme()
+#'
 scale_colour_theme2 <- function () {
   # Function to Install and Load R Packages
   Install_And_Load <- function(Required_Packages)

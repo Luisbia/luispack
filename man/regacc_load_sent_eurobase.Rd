@@ -30,7 +30,7 @@ a data frame
 This function looks at the folder where the files sent to Eurobase are stored, loads them and puts them together in a data frame.
 }
 \examples{
-df<- regacc_sent_eurobase(folder = "D:/data/REGACC/sent/source",
+df<- regacc_load_sent_eurobase(folder = "D:/data/REGACC/sent/source",
 table="nama_10r_2gvagr",
 time_min = "2020-01-01",
 time_max = "2021-03-16",

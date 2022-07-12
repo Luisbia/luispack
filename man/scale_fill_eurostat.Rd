@@ -10,7 +10,7 @@ scale_fill_eurostat()
 Apply the new Eurostat palette to fill aesthetics in ggplot
 }
 \examples{
-library(ggplot2)
+library(tidyverse)
 ggplot(mtcars,aes(cyl,mpg, fill=as.factor(cyl)))+
 geom_col()+
 scale_fill_eurostat()
