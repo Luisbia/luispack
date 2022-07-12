@@ -23,6 +23,10 @@
 
 regacc_sent_eurobase<- function(folder,table, time_min,time_max="2022-07-11", sel_country){
 
+  tables <- c("nama_10r_2gdp", "nama_10r_3gdp", "nama_10r_3popgdp", "nama_10r_3gva", "nama_10r_3empers", "nama_10r_2coe", "nama_10r_2gfcf", "nama_10r_2emhrw", "nama_10r_2hhinc", "nama_10r_2gvavr")
+
+  if (table %in% tables){
+
   # Function to Install and Load R Packages
   Install_And_Load <- function(Required_Packages)
   {
@@ -181,7 +185,10 @@ if(table == "nama_10r_2gdp"){
     print("no such table")
   }
 
+  }else {
+    print("Wrong table: tables should be one of these:nama_10r_2gdp, nama_10r_3gdp, nama_10r_3popgdp, nama_10r_3gva, nama_10r_3empers, nama_10r_2coe, nama_10r_2gfcf, nama_10r_2emhrw, nama_10r_2hhinc, nama_10r_2gvavr" )
   }
+}
 
 
 
