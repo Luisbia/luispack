@@ -10,7 +10,7 @@
 #'   \item{na_item}{Code of the transaction (B1G,EMP,D1,B6N)}
 #'   \item{vintage}{year the data was received}
 #'   \item{time}{reference oeriod}
-#'   \item{valuesl}{values}
+#'   \item{values}{values}
 #' }
 #' @source \url{internal}
 "NQR_data"
