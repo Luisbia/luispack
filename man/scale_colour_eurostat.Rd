@@ -10,7 +10,8 @@ scale_colour_eurostat()
 Apply the new Eurostat palette to  colour aesthetics in ggplot
 }
 \examples{
-ggplot2::ggplot(mtcars,aes(cyl,mpg, colour=as.factor(cyl)))+
+library(ggplot2)
+ggplot(mtcars,aes(cyl,mpg, colour=as.factor(cyl)))+
 geom_point(size=3)+
 scale_colour_eurostat()
 }

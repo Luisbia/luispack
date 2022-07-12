@@ -10,6 +10,7 @@ scale_colour_theme2()
 Apply Eurostat Theme2 palette to colour aesthetics in ggplot
 }
 \examples{
+library(ggplot2)
 ggplot2::ggplot(mtcars,aes(cyl,mpg, colour=as.factor(cyl)))+
 geom_point(size=3)+
 scale_colour_theme2()

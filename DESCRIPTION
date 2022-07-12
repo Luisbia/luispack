@@ -1,6 +1,6 @@
 Package: luispack
 Title: Set of personal functions that are handy
-Version: 0.0.0.1
+Version: 0.0.0.2
 Authors: Luis Biedma <luis.biedma@ec.europa.eu> 
 Description: Ggplot palettes, get eurostat data, export and convert utilities
 License: MIT
