@@ -8,7 +8,8 @@ regacc_load_xml(
   folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INPUT",
   country_sel,
   table_sel,
-  min_time = "2021-01-01",
+  min_time = "2021-10-01",
+  max_time = "2099-01-01",
   consolidate = FALSE
 )
 }
@@ -20,6 +21,8 @@ regacc_load_xml(
 \item{table_sel}{table or tables to look for.}
 
 \item{min_time}{Date from where to look for.}
+
+\item{max_time}{Date where to stop looking for.}
 
 \item{consolidate}{TRUE to remove duplicated values, FALSE (default) to keep them all}
 }
@@ -34,7 +37,20 @@ the arguments of the function. The unit multiplier is changed, if needed, to be
 consistent with the one used by default elsewhere.
 }
 \examples{
-df<- regacc_load_xml(folder= "E:/regacc/data/input/xml",
-                country_sel = "PL")
+# Load all the files waiting to be loaded to FameFeed in the server.
+df<- regacc_load_csv()
 
+# Load only table T1001.
+df <- regacc_load_xml(table_sel = "T1001")
+
+# Load all tables T1001 and T1300 for Slovenia and Luxembourg that have been loaded in Matis.
+df <- regacc_load_xml(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/DONE",
+table_sel = c("T1001","T1300"),
+country_sel = c("SI", "LU"))
+
+# Load all files loaded in Matis between 2021-12-22 2022-01-02 and consolidate them.
+df <- regacc_load_xml(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/DONE",
+min_time = "2021-12-22",
+max_time = "2022-01-02"
+consolidate = TRUE)
 }

@@ -1,12 +1,13 @@
-#' Load xlm files
+#' Load csv files
 #'
 #' @description
 #'
-#' This functions loads xml files into R. We may want to do that to look at files
-#' before loading them with FameFeed. The function will look by default on the server
+#' This function loads csv files into R. The function will look by default on the server
 #' folder for all countries and all tables but that can be changed by the user using
 #' the arguments of the function. The unit multiplier is changed, if needed, to be
-#' consistent with the one used by default elsewhere.
+#' consistent with the one used by default elsewhere. Not all columns in the original file are kept
+#' I selected the most useful ones for numerical analysis. For qualitative info (flags, comments) it
+#' is recommended to use the related function regacc_load_xml.
 #'
 #' @param folder specifies the folder where the files are. By default is the server folder.
 #' @param country_sel Country or countries to look for.
@@ -17,27 +18,14 @@
 #'
 #'
 #' @return a data frame
-#' @export regacc_load_xml
-#' @import dplyr janitor readsdmx tidyr stringr purrr
+#' @export regacc_load_csv
+#' @import  dplyr janitor data.table tidyr stringr purrr
 #'
 #' @examples
-#' # Load all the files waiting to be loaded to FameFeed in the server.
+#' # Load all the files in the folder "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INSPACE"
 #' df<- regacc_load_csv()
 #'
-#' # Load only table T1001.
-#' df <- regacc_load_xml(table_sel = "T1001")
-#'
-#' # Load all tables T1001 and T1300 for Slovenia and Luxembourg that have been loaded in Matis.
-#' df <- regacc_load_xml(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/DONE",
-#' table_sel = c("T1001","T1300"),
-#' country_sel = c("SI", "LU"))
-#'
-#' # Load all files loaded in Matis between 2021-12-22 2022-01-02 and consolidate them.
-#' df <- regacc_load_xml(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/DONE",
-#' min_time = "2021-12-22",
-#' max_time = "2022-01-02"
-#' consolidate = TRUE)
-regacc_load_xml <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INPUT",
+regacc_load_csv <- function(folder = "E:/data/REGACC/csv",
                             country_sel,
                             table_sel,
                             min_time ="2021-10-01",
@@ -67,11 +55,11 @@ regacc_load_xml <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/
     }
   }
   # Specify the list of required packages to be installed and load
-  Required_Packages=c("tidyverse", "janitor", "readsdmx")
+  Required_Packages=c("tidyverse", "janitor", "data.table")
 
   Install_And_Load(Required_Packages)
   df<-list.files(path= folder,
-                 pattern = glob2rx("*xml$"),
+                 pattern = glob2rx("*csv$"),
                  full.names = TRUE,
                  recursive=FALSE) %>%
     as_tibble() %>%
@@ -79,24 +67,26 @@ regacc_load_xml <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/
     unnest(cols=c(date)) %>%
     filter(date > min_time &
            date < max_time) %>%
-    mutate(country = str_sub(value,-22,-21),
-           table = str_sub(value,-30,-26)) %>%
+    mutate(country = str_sub(value,-26,-25),
+           table = str_sub(value,-34,-30)) %>%
     filter(country %in% country_sel &
              table %in% table_sel) %>%
-    mutate(data=map(value,readsdmx::read_sdmx)) %>%
+    mutate(data=map(value,data.table::fread)) %>%
     unnest(cols=c(data)) %>%
     janitor::clean_names() %>%
+    select(value,date,country,table_identifier,ref_area,accounting_entry,sto,activity,prices,unit_measure,time_period,obs_value,obs_status, unit_mult) %>%
     mutate(obs_value=as.numeric(obs_value),
            time_period=as.integer(time_period),
            unit_mult=as.numeric(unit_mult),
            obs_value= if_else(unit_measure %in% c("PS","HW") & unit_mult=="6",obs_value*1000,obs_value),
            obs_value= if_else(unit_measure %in% c("PS","HW") & unit_mult=="0",obs_value/1000,obs_value)) %>%
-    mutate(unit_mult= if_else(unit_measure %in% c("PS","HW"),3,unit_mult))
+    mutate(unit_mult= if_else(unit_measure %in% c("PS","HW"),3,unit_mult)) %>%
+    select(-unit_mult)
 
   if(consolidate == TRUE){
      df <- df %>%
       arrange(date) %>%
-      group_by(across(-c(value,date,last_update))) %>%
+      group_by(across(-c(value,date))) %>%
       slice_head(n=1)
 
      return (df)
