@@ -25,6 +25,18 @@
 #' # Load all the files in the folder "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INSPACE"
 #' df<- regacc_load_csv()
 #'
+#' # Load only table T1001.
+#' df <- regacc_load_csv(table_sel = "T1001")
+#'
+#' # Load all tables T1001 and T1300 for Slovenia and Luxembourg.
+#' df <- regacc_load_xml(table_sel = c("T1001","T1300"),
+#'                       country_sel = c("SI", "LU"))
+#'
+#' # Load all files loaded between 2021-12-22 2022-01-02 and consolidate them.
+#' df <- regacc_load_xml(min_time = "2021-12-22",
+#'                       max_time = "2022-01-02"
+#'                       consolidate = TRUE)
+#'
 regacc_load_csv <- function(folder = "E:/data/REGACC/csv",
                             country_sel,
                             table_sel,
