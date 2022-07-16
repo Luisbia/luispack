@@ -21,5 +21,8 @@ A function to convert most common formats to parquet. Specially useful for big f
 }
 \examples{
 # convert all csv files in folder E:/test and sub-folders to parquet
-anything_to_parquet("E:/test",".csv", recursive = TRUE)
+anything_to_parquet("E:/test",
+                    ".csv",
+                    recursive = TRUE)
+
 }
