@@ -8,6 +8,8 @@ regacc_load_xml(
   folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INPUT",
   country_sel,
   table_sel,
+  sto_sel,
+  unit_sel,
   min_time = "2021-10-01",
   max_time = "2099-01-01",
   consolidate = FALSE
@@ -16,13 +18,17 @@ regacc_load_xml(
 \arguments{
 \item{folder}{specifies the folder where the files are. By default is the server folder.}
 
-\item{country_sel}{Country or countries to look for.}
+\item{country_sel}{Country or countries to look for ("ES", c("ES","PT").}
 
-\item{table_sel}{table or tables to look for.}
+\item{table_sel}{table or tables to look for ("T1001", c("T1001","T1002"))}
 
-\item{min_time}{Date from where to look for.}
+\item{sto_sel}{NA item to look for ("B1G", c("B1G","EMP"))}
 
-\item{max_time}{Date where to stop looking for.}
+\item{unit_sel}{Unit to look for ("XDC", c("XDC","PC"))}
+
+\item{min_time}{Date from where to look for ("2020-01-01").}
+
+\item{max_time}{Date where to stop looking for ("2022-01-01").}
 
 \item{consolidate}{TRUE to remove duplicated values, FALSE (default) to keep them all}
 }
@@ -32,7 +38,7 @@ a data frame
 \description{
 This functions loads xml files into R. We may want to do that to look at files
 before loading them with FameFeed. The function will look by default on the server
-folder for all countries and all tables but that can be changed by the user using
+folder for all countries, tables, variables and units but that can be changed by the user using
 the arguments of the function. The unit multiplier is changed, if needed, to be
 consistent with the one used by default elsewhere.
 }

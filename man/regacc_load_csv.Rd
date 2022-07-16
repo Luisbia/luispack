@@ -25,6 +25,10 @@ regacc_load_csv(
 \item{max_time}{Date where to stop looking for.}
 
 \item{consolidate}{TRUE to remove duplicated values, FALSE (default) to keep them all}
+
+\item{sto_sel}{NA item to look for ("B1G", c("B1G","EMP"))}
+
+\item{unit_sel}{Unit to look for ("XDC", c("XDC","PC"))}
 }
 \value{
 a data frame

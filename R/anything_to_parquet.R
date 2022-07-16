@@ -9,7 +9,6 @@
 #'
 #' @return files are read with rio and converted to parquet with arrow. The file names are the same but replacing the extention
 #' @export regacc_load_xml
-#' @import arrow rio purrr
 #' @examples
 #' # convert all csv files in folder E:/test and sub-folders to parquet
 #' anything_to_parquet("E:/test",

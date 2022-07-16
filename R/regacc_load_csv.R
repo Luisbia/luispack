@@ -12,14 +12,15 @@
 #' @param folder specifies the folder where the files are. By default is the server folder.
 #' @param country_sel Country or countries to look for.
 #' @param table_sel table or tables to look for.
+#' @param sto_sel NA item to look for ("B1G", c("B1G","EMP"))
+#' @param unit_sel Unit to look for ("XDC", c("XDC","PC"))
 #' @param min_time Date from where to look for.
 #' @param max_time Date where to stop looking for.
 #' @param consolidate TRUE to remove duplicated values, FALSE (default) to keep them all
+#' @export regacc_load_csv
 #'
 #'
 #' @return a data frame
-#' @export regacc_load_csv
-#' @import  dplyr janitor data.table tidyr stringr purrr
 #'
 #' @examples
 #' # Load all the files in the folder "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INSPACE"
@@ -50,6 +51,12 @@ regacc_load_csv <- function(folder = "E:/data/REGACC/csv",
 
   if(missing(table_sel)) {
     table_sel<- c("T1001","T1002","T1200","T1300")}
+
+  if(missing(sto_sel)) {
+    table_sel<- c("B1G","EMP","POP","D1","P51G","SAL","B2A3N","D4","B5N","D62","D7","D5","D61","B6N","D63","B7N","P51C","P3")}
+
+  if(missing(unit_sel)) {
+    table_sel<- c("XDC","PC","PS","HW")}
 
 
   # Function to Install and Load R Packages
@@ -93,7 +100,8 @@ regacc_load_csv <- function(folder = "E:/data/REGACC/csv",
            obs_value= if_else(unit_measure %in% c("PS","HW") & unit_mult=="6",obs_value*1000,obs_value),
            obs_value= if_else(unit_measure %in% c("PS","HW") & unit_mult=="0",obs_value/1000,obs_value)) %>%
     mutate(unit_mult= if_else(unit_measure %in% c("PS","HW"),3,unit_mult)) %>%
-    select(-unit_mult)
+    select(-unit_mult)%>%
+    filter(sto %in% sto_sel & unit_measure %in% unit_sel )
 
   if(consolidate == TRUE){
      df <- df %>%
