@@ -17,7 +17,7 @@
 #' @param time_min Date from where to look for.
 #' @param time_max Date where to stop looking for.
 #' @param consolidate TRUE to remove duplicated values, FALSE (default) to keep them all
-#' @export regacc_load_csv
+#' @export load_csv
 #'
 #'
 #' @return a data frame
