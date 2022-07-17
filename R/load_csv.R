@@ -38,9 +38,11 @@
 #'                       time_max = "2022-01-02"
 #'                       consolidate = TRUE)
 #'
-load_csv <- function(folder = "E:/data/REGACC/csv",
+load_csv <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INSPACE",
                             country_sel,
                             table_sel,
+                            sto_sel,
+                            unit_sel,
                             time_min ="2021-10-01",
                             time_max ="2099-01-01",
                             consolidate=FALSE){
@@ -53,10 +55,10 @@ load_csv <- function(folder = "E:/data/REGACC/csv",
     table_sel<- c("T1001","T1002","T1200","T1300")}
 
   if(missing(sto_sel)) {
-    table_sel<- c("B1G","EMP","POP","D1","P51G","SAL","B2A3N","D4","B5N","D62","D7","D5","D61","B6N","D63","B7N","P51C","P3")}
+    sto_sel<- c("B1G","EMP","POP","D1","P51G","SAL","B2A3N","D4","B5N","D62","D7","D5","D61","B6N","D63","B7N","P51C","P3")}
 
   if(missing(unit_sel)) {
-    table_sel<- c("XDC","PC","PS","HW")}
+    unit_sel<- c("XDC","PC","PS","HW")}
 
 
   # Function to Install and Load R Packages

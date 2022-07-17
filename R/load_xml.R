@@ -54,10 +54,10 @@ load_xml <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/
     table_sel<- c("T1001","T1002","T1200","T1300")}
 
   if(missing(sto_sel)) {
-    table_sel<- c("B1G","EMP","POP","D1","P51G","SAL","B2A3N","D4","B5N","D62","D7","D5","D61","B6N","D63","B7N","P51C","P3")}
+    sto_sel<- c("B1G","EMP","POP","D1","P51G","SAL","B2A3N","D4","B5N","D62","D7","D5","D61","B6N","D63","B7N","P51C","P3")}
 
   if(missing(unit_sel)) {
-    table_sel<- c("XDC","PC","PS","HW")}
+    unit_sel<- c("XDC","PC","PS","HW")}
 
   # Function to Install and Load R Packages
   Install_And_Load <- function(Required_Packages)

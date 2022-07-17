@@ -5,9 +5,11 @@
 \title{Load csv files}
 \usage{
 load_csv(
-  folder = "E:/data/REGACC/csv",
+  folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INSPACE",
   country_sel,
   table_sel,
+  sto_sel,
+  unit_sel,
   time_min = "2021-10-01",
   time_max = "2099-01-01",
   consolidate = FALSE
@@ -20,15 +22,15 @@ load_csv(
 
 \item{table_sel}{table or tables to look for.}
 
+\item{sto_sel}{NA item to look for ("B1G", c("B1G","EMP"))}
+
+\item{unit_sel}{Unit to look for ("XDC", c("XDC","PC"))}
+
 \item{time_min}{Date from where to look for.}
 
 \item{time_max}{Date where to stop looking for.}
 
 \item{consolidate}{TRUE to remove duplicated values, FALSE (default) to keep them all}
-
-\item{sto_sel}{NA item to look for ("B1G", c("B1G","EMP"))}
-
-\item{unit_sel}{Unit to look for ("XDC", c("XDC","PC"))}
 }
 \value{
 a data frame

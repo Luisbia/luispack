@@ -110,7 +110,7 @@ load_sent_eurobase<- function(folder,table_sel, country_sel,time_min= "2019-01-0
     import_file_hh <- function(file) {
       import(file,
              sep = " ",
-             col.names = c("time", "geo", "na_item", "acc", "unit", "values"),
+             col.names = c("time", "geo", "na_item", "direct", "unit", "values"),
              colClasses = list(time = "character", geo = "character", na_item = "character", acc = "character", unit = "character", values = "character"),
              skip = 3
       ) %>%
@@ -124,7 +124,7 @@ load_sent_eurobase<- function(folder,table_sel, country_sel,time_min= "2019-01-0
         .[country %in% country_sel,]
     }
 
-    # ggvagr
+    # gvagr
     import_file_gvagr <- function(file) {
       import(file,
              sep = " ",
