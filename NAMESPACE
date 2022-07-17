@@ -2,6 +2,9 @@
 
 export(convert_anything)
 export(eurostat_find)
+export(get_annual_GDP)
+export(get_quarterly_GDP)
+export(get_regional_GDP)
 export(regacc_load_csv)
 export(regacc_load_xml)
 export(show_DT)
