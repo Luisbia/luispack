@@ -3,7 +3,7 @@
 #' Load excel extractions from REGACC for A_ tables (VAL.T.T1001.A.AT.W2.S1.S1.B.B1G._T.B.V.N.XDC) extracted horizontally and select the columns to keep.
 #' It requires `{rio}`, `{tidyverse}` and `{data.table}`.
 #'
-#' By default it keeps the most useful columns. To keep all columns use: c("VAL","type", "table_identifier", "freq", "ref_area",
+#' By default it keeps the most useful columns. To keep all columns use: keep_cols= c("VAL","type", "table_identifier", "freq", "ref_area",
 #' "counterpart_area","ref_sector","counterpart_sector","accounting_entry", "sto", "activity", "valuation", "prices",
 #' "transformation","unit_measure", "time","values","flag) or any subset.
 #' @param file The file to load.
@@ -17,13 +17,17 @@
 #'
 #'
 load_matis <- function(file,
-                              keep_cols = c("type","table_identifier", "ref_area","accounting_entry","sto","activity","unit_measure","time","values","flag")) {
+                       keep_cols ) {
   options(warn = - 1)
   # Specify the list of required packages to be installed and load
   require(rio)
   require(tidyverse)
   require(data.table)
 
+  if(missing(keep_cols)){
+  keep_cols= c("type","table_identifier", "ref_area","accounting_entry","sto","activity","unit_measure","time","values","flag")
+}
+}
   df <-rio::import(file) %>%
     pivot_longer(cols= !starts_with("ANNUAL"),
                  names_to = "time",
