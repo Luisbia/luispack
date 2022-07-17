@@ -1,21 +1,23 @@
-#' Convert most common files to parquet files
+#' Convert most common file formats
 #'
 #' @description
-#' A function to convert most common formats to parquet. Specially useful for big files with several columns.
+#' A function to convert most common formats. Specially useful when we need to compress to a certain format a lot of files.
 #'
 #' @param dir folder in which the files to be converted are stored
-#' @param extension extension of the files to be converted, for example (.xlsx)
+#' @param origin extension of the files to be converted, for example ("xlsx")
+#' @param dest extension to which the files will be converted, for example ("csv").
 #' @param recursive whether lo kook recursively in sub-folders, FALSE by default
 #'
-#' @return files are read with rio and converted to parquet with arrow. The file names are the same but replacing the extention
-#' @export regacc_load_xml
+#' @return files are read/written with rio, the same name is kept
+#' @export convert_anything
 #' @examples
 #' # convert all csv files in folder E:/test and sub-folders to parquet
-#' anything_to_parquet("E:/test",
-#'                     ".csv",
-#'                     recursive = TRUE)
+#' convert_anything("E:/test",
+#'                  "csv",
+#'                  "parquet",
+#'                  recursive = TRUE)
 #'
-anything_to_parquet<- function(dir, extension, recursive = FALSE){
+convert_anything<- function(dir, origin, dest, recursive = FALSE){
 
   # Specify the list of required packages to be installed and load
   Required_Packages=c("arrow","rio","purrr")
@@ -38,14 +40,14 @@ anything_to_parquet<- function(dir, extension, recursive = FALSE){
 
 
   list_files <- list.files (path = dir,
-                            pattern = glob2rx(paste0("*",extension,"$")),
+                            pattern = glob2rx(paste0("*",origin,"$")),
                             full.names = TRUE,
                             recursive=recursive)
 
-  anything_to_parquet <- function(file) {
+  convert <- function(file) {
     data <- rio::import(file)
-    arrow::write_parquet(data,stringr::str_replace(paste0(file),paste0(extension,"$"),".parquet"))
+    export(data,file=stringr::str_replace(paste0(file),paste0(origin,"$"),paste0(dest)))
   }
 
-  purrr::walk(list_files, anything_to_parquet)
+  purrr::walk(list_files, convert)
 }
