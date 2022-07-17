@@ -17,33 +17,33 @@
 #' @param max_time Date where to stop looking for ("2022-01-01").
 #' @param consolidate TRUE to remove duplicated values, FALSE (default) to keep them all
 #'
-#' @export regacc_load_xml
+#' @export load_xml
 #' @return a data frame
 #'
 #' @examples
 #' # Load all the files waiting to be loaded to FameFeed in the server.
-#' df<- regacc_load_csv()
+#' df<- load_xml()
 #'
 #' # Load only table T1001.
-#' df <- regacc_load_xml(table_sel = "T1001")
+#' df <- load_xml(table_sel = "T1001")
 #'
 #' # Load all tables T1001 and T1300 for Slovenia and Luxembourg that have been loaded in Matis.
-#' df <- regacc_load_xml(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/DONE",
+#' df <- load_xml(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/DONE",
 #' table_sel = c("T1001","T1300"),
 #' country_sel = c("SI", "LU"))
 #'
 #' # Load all files loaded in Matis between 2021-12-22 2022-01-02 and consolidate them.
-#' df <- regacc_load_xml(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/DONE",
-#' min_time = "2021-12-22",
-#' max_time = "2022-01-02"
+#' df <- load_xml(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/DONE",
+#' time_min = "2021-12-22",
+#' time_max = "2022-01-02"
 #' consolidate = TRUE)
-regacc_load_xml <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INPUT",
+load_xml <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INPUT",
                             country_sel,
                             table_sel,
                             sto_sel,
                             unit_sel,
-                            min_time ="2021-10-01",
-                            max_time ="2099-01-01",
+                            time_min ="2021-10-01",
+                            time_max ="2099-01-01",
                             consolidate=FALSE){
   if(missing(country_sel)) {
     country_sel<- c("AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR",
@@ -84,8 +84,8 @@ regacc_load_xml <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/
     as_tibble() %>%
     mutate(date=map(value,file.mtime)) %>%
     unnest(cols=c(date)) %>%
-    filter(date > min_time &
-           date < max_time) %>%
+    filter(date > time_min &
+           date < time_max) %>%
     mutate(country = str_sub(value,-22,-21),
            table = str_sub(value,-30,-26)) %>%
     filter(country %in% country_sel &
