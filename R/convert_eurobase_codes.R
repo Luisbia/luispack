@@ -17,24 +17,9 @@
 #'
 #' df1<-convert_eurobase_codes(df)
  convert_eurobase_codes <- function(df){
-   # Function to Install and Load R Packages
-   Install_And_Load <- function(Required_Packages)
-   {
-     Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
 
-     if(length(Remaining_Packages))
-     {
-       install.packages(Remaining_Packages);
-     }
-     for(package_name in Required_Packages)
-     {
-       library(package_name,character.only=TRUE,quietly=TRUE);
-     }
-   }
-   # Specify the list of required packages to be installed and load
-   Required_Packages=c("tidyverse")
+      luispack::check_packages()
 
-   Install_And_Load(Required_Packages)
      if("geo" %in% names(df)){
     df<- rename(df, ref_area = geo)
   }

@@ -23,24 +23,8 @@ load_MDT <- function(folder, table_sel, country_sel){
                     "SK","NO", "ME", "MK","TR","AL","RS","UK","CH")}
 
   if (table_sel %in% tables){
-    # Function to Install and Load R Packages
-    Install_And_Load <- function(Required_Packages)
-    {
-      Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
 
-      if(length(Remaining_Packages))
-      {
-        install.packages(Remaining_Packages);
-      }
-      for(package_name in Required_Packages)
-      {
-        library(package_name,character.only=TRUE,quietly=TRUE);
-      }
-    }
-    # Specify the list of required packages to be installed and load
-    Required_Packages=c("tidyverse", "data.table")
-
-    Install_And_Load(Required_Packages)
+    luispack::check_packages()
 
     tables <- c("nama_10r_2gdp", "nama_10r_3gdp", "nama_10r_3popgdp", "nama_10r_3gva", "nama_10r_3empers", "nama_10r_2coe", "nama_10r_2gfcf", "nama_10r_2emhrw", "nama_10r_2hhinc", "nama_10r_2gvavr")
 

@@ -59,24 +59,8 @@ load_xml <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/
   if(missing(unit_sel)) {
     unit_sel<- c("XDC","PC","PS","HW")}
 
-  # Function to Install and Load R Packages
-  Install_And_Load <- function(Required_Packages)
-  {
-    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+  luispack::check_packages()
 
-    if(length(Remaining_Packages))
-    {
-      install.packages(Remaining_Packages);
-    }
-    for(package_name in Required_Packages)
-    {
-      library(package_name,character.only=TRUE,quietly=TRUE);
-    }
-  }
-  # Specify the list of required packages to be installed and load
-  Required_Packages=c("tidyverse", "janitor", "readsdmx")
-
-  Install_And_Load(Required_Packages)
   df<-list.files(path= folder,
                  pattern = glob2rx("*xml$"),
                  full.names = TRUE,

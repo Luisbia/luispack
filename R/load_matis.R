@@ -19,14 +19,11 @@
 load_matis <- function(file,
                        keep_cols ) {
   options(warn = - 1)
-  # Specify the list of required packages to be installed and load
-  require(rio)
-  require(tidyverse)
-  require(data.table)
+
+  luispack::check_packages()
 
   if(missing(keep_cols)){
   keep_cols= c("type","table_identifier", "ref_area","accounting_entry","sto","activity","unit_measure","time","values","flag")
-}
 }
   df <-rio::import(file) %>%
     pivot_longer(cols= !starts_with("ANNUAL"),
@@ -45,7 +42,9 @@ load_matis <- function(file,
 
   df<- df %>%
     select(all_of(keep_cols))
+
   return(df)
+
   options(warn = 0)
 }
 

@@ -20,25 +20,8 @@
 #'
 eurostat_find <- function(sel_code, sel_desc, sel_update) {
   # Function to Install and Load R Packages
-  Install_And_Load <- function(Required_Packages)
-  {
-    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
+  luispack::check_packages()
 
-    if(length(Remaining_Packages))
-    {
-      install.packages(Remaining_Packages);
-    }
-    for(package_name in Required_Packages)
-    {
-      library(package_name,character.only=TRUE,quietly=TRUE);
-    }
-  }
-
-  # Specify the list of required packages to be installed and load
-  Required_Packages=c("readr","tibble","janitor","dplyr","stringr","lubridate")
-
-  # Call the Function
-  Install_And_Load(Required_Packages)
   options(warn = - 1)                # Disable warning messages globally
   df <- readr::read_delim("https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=table_of_contents_en.txt",
                           show_col_types = FALSE) %>%

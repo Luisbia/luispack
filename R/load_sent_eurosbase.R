@@ -29,24 +29,7 @@ load_sent_eurobase<- function(folder,table_sel, country_sel,time_min= "2019-01-0
 
   if (table_sel %in% tables){
 
-    # Function to Install and Load R Packages
-    Install_And_Load <- function(Required_Packages)
-    {
-      Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
-
-      if(length(Remaining_Packages))
-      {
-        install.packages(Remaining_Packages);
-      }
-      for(package_name in Required_Packages)
-      {
-        library(package_name,character.only=TRUE,quietly=TRUE);
-      }
-    }
-    # Specify the list of required packages to be installed and load
-    Required_Packages=c("rio", "tidyr","magrittr", "data.table", "stringr")
-
-    Install_And_Load(Required_Packages)
+    luispack::check_packages()
 
     if(missing(country_sel)) {
       country_sel<- c("AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR",

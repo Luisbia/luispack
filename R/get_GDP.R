@@ -63,25 +63,7 @@ get_quarterly_GDP <- function(na_item_sel = "B1GQ",
                               unit_sel = "CLV_PCH_PRE",
                               s_adj_sel= "SCA",
                               min_time = "2019-01-01"){
-  # Function to Install and Load R Packages
-  Install_And_Load <- function(Required_Packages)
-  {
-    Remaining_Packages <- Required_Packages[!(Required_Packages %in% installed.packages()[,"Package"])];
-
-    if(length(Remaining_Packages))
-    {
-      install.packages(Remaining_Packages);
-    }
-    for(package_name in Required_Packages)
-    {
-      library(package_name,character.only=TRUE,quietly=TRUE);
-    }
-  }
-
-  # Specify the list of required packages to be installed and load
-  Required_Packages=c("eurostat","dplyr")
-  # Call the Function
-  Install_And_Load(Required_Packages)
+  luispack::check_packages()
 
   dt<-eurostat::get_eurostat("namq_10_gdp",
                                    filters=list(na_item=na_item_sel,
