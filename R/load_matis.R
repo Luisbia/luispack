@@ -13,7 +13,7 @@
 #' @export load_matis
 #'
 #' @examples
-#' df<-load_matis("D:/03_Regional Accounts/03D_Data Production/2021/BE/matis/t1200_BE_01.xlsx",keep_cols= c("type","ref_area","sto","activity","time","values"))
+#' df<-load_matis("E:/03_Regional Accounts/03D_Data Production/2021/BE/matis/t1200_BE_01.xlsx",keep_cols= c("type","ref_area","sto","activity","time","values"))
 #'
 #'
 load_matis <- function(file,
@@ -22,9 +22,7 @@ load_matis <- function(file,
 
   luispack::check_packages()
 
-  if(missing(keep_cols)){
-  keep_cols= c("type","table_identifier", "ref_area","accounting_entry","sto","activity","unit_measure","time","values","flag")
-}
+
   df <-rio::import(file) %>%
     pivot_longer(cols= !starts_with("ANNUAL"),
                  names_to = "time",
@@ -39,6 +37,9 @@ load_matis <- function(file,
     .[values!="ND",] %>%
     .[,time := as.integer(time)]
 
+  if(missing(keep_cols)){
+    keep_cols= c("type","table_identifier", "ref_area","accounting_entry","sto","activity","unit_measure","time","values","flag")
+  }
 
   df<- df %>%
     select(all_of(keep_cols))

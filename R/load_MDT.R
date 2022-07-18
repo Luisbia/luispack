@@ -15,18 +15,18 @@
 #'                        country_sel = c("ES","PT"))
 
 load_MDT <- function(folder, table_sel, country_sel){
+  luispack::check_packages()
 
-  tables <- c("nama_10r_2gdp", "nama_10r_3gdp", "nama_10r_3popgdp", "nama_10r_3gva", "nama_10r_3empers", "nama_10r_2coe", "nama_10r_2gfcf", "nama_10r_2emhrw", "nama_10r_2hhinc", "nama_10r_2gvavr")
-  if(missing(country_sel)) {
+    if(missing(country_sel)) {
     country_sel<- c("AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR",
                     "HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI",
                     "SK","NO", "ME", "MK","TR","AL","RS","UK","CH")}
 
+  tables <- c("nama_10r_2gdp", "nama_10r_3gdp", "nama_10r_3popgdp", "nama_10r_3gva", "nama_10r_3empers", "nama_10r_2coe", "nama_10r_2gfcf", "nama_10r_2emhrw", "nama_10r_2hhinc", "nama_10r_2gvavr")
+
   if (table_sel %in% tables){
 
-    luispack::check_packages()
-
-    import_MDT<- function(file) {
+      import_MDT<- function(file) {
       df<-data.table::fread(file,fill = TRUE)%>%
         .[,obs_decimals :=NULL] %>%
         .[, country := substr(geo, start = 1, stop = 2)] %>%
