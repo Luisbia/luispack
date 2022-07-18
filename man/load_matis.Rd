@@ -23,7 +23,7 @@ By default it keeps the most useful columns. To keep all columns use: keep_cols=
 "transformation","unit_measure", "time","values","flag) or any subset.
 }
 \examples{
-df<-load_matis("D:/03_Regional Accounts/03D_Data Production/2021/BE/matis/t1200_BE_01.xlsx",keep_cols= c("type","ref_area","sto","activity","time","values"))
+df<-load_matis("E:/03_Regional Accounts/03D_Data Production/2021/BE/matis/t1200_BE_01.xlsx",keep_cols= c("type","ref_area","sto","activity","time","values"))
 
 
 }
