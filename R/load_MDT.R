@@ -26,9 +26,6 @@ load_MDT <- function(folder, table_sel, country_sel){
 
     luispack::check_packages()
 
-    tables <- c("nama_10r_2gdp", "nama_10r_3gdp", "nama_10r_3popgdp", "nama_10r_3gva", "nama_10r_3empers", "nama_10r_2coe", "nama_10r_2gfcf", "nama_10r_2emhrw", "nama_10r_2hhinc", "nama_10r_2gvavr")
-
-
     import_MDT<- function(file) {
       df<-data.table::fread(file,fill = TRUE)%>%
         .[,obs_decimals :=NULL] %>%

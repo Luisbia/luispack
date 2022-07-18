@@ -18,7 +18,6 @@
 #' country_sel = c("ES","PT"),
 #' time_min = "2020-01-01",
 #' time_max = "2021-03-16",
-#' country_sel =c("LU","EE"),
 #' consolidate = TRUE)
 
 
@@ -27,9 +26,8 @@ load_sent_eurobase<- function(folder,table_sel, country_sel,time_min= "2019-01-0
 
   tables <- c("nama_10r_2gdp", "nama_10r_3gdp", "nama_10r_3popgdp", "nama_10r_3gva", "nama_10r_3empers", "nama_10r_2coe", "nama_10r_2gfcf", "nama_10r_2emhrw", "nama_10r_2hhinc", "nama_10r_2gvagr")
 
+  luispack::check_packages()
   if (table_sel %in% tables){
-
-    luispack::check_packages()
 
     if(missing(country_sel)) {
       country_sel<- c("AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR",
@@ -120,7 +118,7 @@ load_sent_eurobase<- function(folder,table_sel, country_sel,time_min= "2019-01-0
         .[, country := substr(geo, start = 1, stop = 2)] %>%
         .[country %in% country_sel,] %>%
         .[, NUTS := stringr::str_length(geo)-2] %>%
-        .[, c("values", "flag") := separate(values, "~")] %>%
+        .[, c("values", "flag") := tstrsplit(values, "~")] %>%
         .[, values := as.numeric(values)] %>%
         .[country %in% country_sel,]
     }
@@ -143,39 +141,30 @@ load_sent_eurobase<- function(folder,table_sel, country_sel,time_min= "2019-01-0
 
     } else if (table_sel == "nama_10r_3gdp") {
       df_list<-df_list[,data:=purrr::map(value,import_file_gdp)] %>%
-        # bind the dataframes. like tidyr::unnest but faster
         .[,rbindlist(data),.(date)]
     } else if (table_sel == "nama_10r_3popgdp") {
       df_list<-df_list[,data:=purrr::map(value,import_file_gdp)] %>%
-        # bind the dataframes. like tidyr::unnest but faster
         .[,rbindlist(data),.(date)]
     } else if (table_sel == "nama_10r_3gva") {
       df_list<-df_list[,data:=purrr::map(value,import_file_gva)] %>%
-        # bind the dataframes. like tidyr::unnest but faster
         .[,rbindlist(data),.(date)]
     } else if (table_sel == "nama_10r_3empers") {
       df_list<-df_list[,data:=purrr::map(value,import_file_emp)] %>%
-        # bind the dataframes. like tidyr::unnest but faster
         .[,rbindlist(data),.(date)]
     } else if (table_sel == "nama_10r_2coe") {
       df_list<-df_list[,data:=purrr::map(value,import_file_gva)] %>%
-        # bind the dataframes. like tidyr::unnest but faster
         .[,rbindlist(data),.(date)]
     } else if (table_sel == "nama_10r_2gfcf") {
       df_list<-df_list[,data:=purrr::map(value,import_file_gva)] %>%
-        # bind the dataframes. like tidyr::unnest but faster
         .[,rbindlist(data),.(date)]
-    } else if (table_sel == "nama_10r_2wmhrw") {
+    } else if (table_sel == "nama_10r_2emhrw") {
       df_list<-df_list[,data:=purrr::map(value,import_file_emp)] %>%
-        # bind the dataframes. like tidyr::unnest but faster
         .[,rbindlist(data),.(date)]
     } else if (table_sel == "nama_10r_2hhinc") {
       df_list<-df_list[,data:=purrr::map(value,import_file_hh)] %>%
-        # bind the dataframes. like tidyr::unnest but faster
         .[,rbindlist(data),.(date)]
     } else if (table_sel == "nama_10r_2gvagr") {
       df_list<-df_list[,data:=purrr::map(value,import_file_gvagr)] %>%
-        # bind the dataframes. like tidyr::unnest but faster
         .[,rbindlist(data),.(date)]
     } else{
       print("no such table")

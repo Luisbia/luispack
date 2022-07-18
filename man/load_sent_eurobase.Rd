@@ -38,6 +38,5 @@ table_sel="nama_10r_2gvagr",
 country_sel = c("ES","PT"),
 time_min = "2020-01-01",
 time_max = "2021-03-16",
-country_sel =c("LU","EE"),
 consolidate = TRUE)
 }

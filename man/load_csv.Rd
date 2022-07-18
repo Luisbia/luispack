@@ -56,7 +56,7 @@ df <- load_csv(table_sel = c("T1001","T1300"),
 
 # Load all files loaded between 2021-12-22 2022-01-02 and consolidate them.
 df <- load_csv(time_min = "2021-12-22",
-                      time_max = "2022-01-02"
+                      time_max = "2022-01-02",
                       consolidate = TRUE)
 
 }

@@ -1,6 +1,6 @@
 Package: luispack
 Title: Set of handy personal functions
-Version: 0.0.0.3
+Version: 0.0.0.1
 Author: Luis Biedma <luis.biedma@ec.europa.eu>
 Maintainer: Luis Biedma <luis.biedma@ec.europa.eu>
 Description: Ggplot palettes, get eurostat data, export and convert utilities
@@ -9,7 +9,6 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
 Imports: 
-    arrow,
     data.table,
     dplyr,
     DT,
@@ -20,6 +19,7 @@ Imports:
     openxlsx,
     purrr,
     readr,
+    magrittr,
     readsdmx,
     rio,
     stringr,

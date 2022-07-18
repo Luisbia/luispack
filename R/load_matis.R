@@ -17,7 +17,7 @@
 #'
 #'
 load_matis <- function(file,
-                       keep_cols ) {
+                       keep_cols) {
   options(warn = - 1)
 
   luispack::check_packages()
@@ -36,9 +36,9 @@ load_matis <- function(file,
     .[,c("values","flag"):= tstrsplit(values, "#")] %>%
     .[,ANNUAL:= NULL] %>%
     .[,VAL:=NULL] %>%
-    .[,time := as.integer(time)]%>%
-    .[,values:=as.numeric(values)] %>%
-    na.omit()
+    .[values!="ND",] %>%
+    .[,time := as.integer(time)]
+
 
   df<- df %>%
     select(all_of(keep_cols))

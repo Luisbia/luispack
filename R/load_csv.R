@@ -35,7 +35,7 @@
 #'
 #' # Load all files loaded between 2021-12-22 2022-01-02 and consolidate them.
 #' df <- load_csv(time_min = "2021-12-22",
-#'                       time_max = "2022-01-02"
+#'                       time_max = "2022-01-02",
 #'                       consolidate = TRUE)
 #'
 load_csv <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INSPACE",
@@ -62,6 +62,21 @@ load_csv <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/
 
   luispack::check_packages()
 
+
+  read_df<- function (file){
+    fread(file,sep =";") %>%
+    janitor::clean_names() %>%
+      select(table_identifier,ref_area,accounting_entry,sto,activity,prices,unit_measure,time_period,obs_value,obs_status, unit_mult) %>%
+      mutate(obs_value=as.numeric(obs_value),
+             time_period=as.integer(time_period),
+             unit_mult=as.numeric(unit_mult),
+             obs_value= if_else(unit_measure %in% c("PS","HW") & unit_mult=="6",obs_value*1000,obs_value),
+             obs_value= if_else(unit_measure %in% c("PS","HW") & unit_mult=="0",obs_value/1000,obs_value)) %>%
+      mutate(unit_mult= if_else(unit_measure %in% c("PS","HW"),3,unit_mult)) %>%
+      select(-unit_mult)%>%
+      filter(sto %in% sto_sel & unit_measure %in% unit_sel )
+  }
+
   df<-list.files(path= folder,
                  pattern = glob2rx("*csv$"),
                  full.names = TRUE,
@@ -75,18 +90,9 @@ load_csv <- function(folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/
            table = str_sub(value,-34,-30)) %>%
     filter(country %in% country_sel &
              table %in% table_sel) %>%
-    mutate(data=map(value,data.table::fread)) %>%
-    unnest(cols=c(data)) %>%
-    janitor::clean_names() %>%
-    select(value,date,country,table_identifier,ref_area,accounting_entry,sto,activity,prices,unit_measure,time_period,obs_value,obs_status, unit_mult) %>%
-    mutate(obs_value=as.numeric(obs_value),
-           time_period=as.integer(time_period),
-           unit_mult=as.numeric(unit_mult),
-           obs_value= if_else(unit_measure %in% c("PS","HW") & unit_mult=="6",obs_value*1000,obs_value),
-           obs_value= if_else(unit_measure %in% c("PS","HW") & unit_mult=="0",obs_value/1000,obs_value)) %>%
-    mutate(unit_mult= if_else(unit_measure %in% c("PS","HW"),3,unit_mult)) %>%
-    select(-unit_mult)%>%
-    filter(sto %in% sto_sel & unit_measure %in% unit_sel )
+      mutate(data=map(value,read_df)) %>%
+      unnest(cols=c(data))
+
 
   if(consolidate == TRUE){
      df <- df %>%

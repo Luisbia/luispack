@@ -49,7 +49,7 @@
   }
   if("activity" %in% names(df)){
     df<- df %>%
-      mutate(activity = str_replace_all(activity,"B_E","BTE"),
+      mutate(activity = str_replace_all(activity,"B-E","BTE"),
              activity = str_replace_all(activity,"G-J","GTJ"),
              activity = str_replace_all(activity,"G-I","GTI"),
              activity = str_replace_all(activity,"K-N","KTN"),
@@ -59,8 +59,8 @@
   }
   if("unit_measure" %in% names(df)){
     df<- df %>%
-      mutate(unit_measure = str_replace_all(unit_measure,"MIO_NAC","XDC",),
-             unit_measure = str_replace_all(unit_measure, ,"PCH_PRE","PC"))
+      mutate(unit_measure = str_replace_all(unit_measure,"MIO_NAC","XDC"),
+             unit_measure = str_replace_all(unit_measure, "PCH_PRE","PC"))
   }
   return(df)
 }
