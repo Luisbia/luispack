@@ -71,7 +71,8 @@ regacc_linechart <- function(dat,
                        breaks = scales::breaks_pretty(n=3),
                        expand = c(0,0))+
     scale_y_continuous(labels = scales::label_number(),
-                       breaks = scales::breaks_pretty(n=4))
+                       breaks = scales::breaks_pretty(n=4))+
+    scale_colour_eurostat()
 
   if (leg == FALSE) {
     plot <- plot + theme(legend.position = "none")
