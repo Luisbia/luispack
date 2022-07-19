@@ -1,0 +1,154 @@
+---
+title: "luispack-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{luispack-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The source files to install the package are stored in the U: drive and can be installed as follows:
+
+```{r setup, eval=FALSE}
+install.packages("U:/03_Regional Accounts/03D_Data Production/2022/R/luispack_0.0.0.1.tar.gz", type = "source")
+```
+
+
+{luispack} consist of a series of `load*`, `get*`, `convert*`, `check*`, `report*` and other miscellaneous functions and data that are being slowly ported, and being made more generic, from existing scripts. It is still WIP and will not be finalised until the last quarter of 2022.
+
+The overall aim is to centralised as much as possible what has been developed internally in the latest years, document it and simplify the user experience. 
+
+While the functions have become more general, they cannot be used directly for other National Accounts processes, but with limited efforts they could be adapted to work on them.
+
+```{r}
+library(luispack)
+ls("package:luispack")
+```
+
+## Load* functions
+
+The REGACC team has created functions to load the most common input files used in the domain but it required certain R knowledge to adapt them for specific situations (one versus several files, one or several folders, full or partial tables, with or with changes). 
+
+There are functions for xml, csv, matis, sent to eurobase and MDT files. While there are small variations between them because they use them for several purposes they are quite similar. We will look at some detail at `load_xml()`
+
+The documentation available in the package which can be found in the panel or typing `?load_xml` is
+
+```{r, eval=FALSE}
+load_xml(
+  folder = "//fame2prod.cc.cec.eu.int/fame-estat/econ/REGACC/INPUT",
+  country_sel,
+  table_sel,
+  sto_sel,
+  unit_sel,
+  time_min = "2021-10-01",
+  time_max = "2099-01-01",
+  consolidate = FALSE
+)
+```
+
+**folder**	
+specifies the folder where the files are. By default is the server folder.
+
+**country_sel**	
+Country or countries to look for ("ES", c("ES","PT").
+
+**table_sel**	
+table or tables to look for ("T1001", c("T1001","T1002"))
+
+**sto_sel**	
+NA item to look for ("B1G", c("B1G","EMP"))
+
+**unit_sel**	
+Unit to look for ("XDC", c("XDC","PC"))
+
+**consolidate**	
+TRUE to remove duplicated values, FALSE (default) to keep them all
+
+min_time	
+Date from where to look for ("2020-01-01").
+
+max_time	
+Date where to stop looking for ("2022-01-01").
+
+If we execute `load_xml()` it will look for all the files (any country and table) in the server that have not been loaded in FameFeed with the only condition that they have been created after the first of October of 2021. 
+
+If we change the **folder** parameter it will look (not recursively) in that folder.
+
+```{r,warning=FALSE, message=FALSE}
+library(tidyverse)
+xml<- load_xml("E:/test")
+
+#print the number of rows
+cat(prettyNum(nrow(xml)))
+
+xml %>% select(country,table) %>% unique()
+```
+
+We can select one or several countries,tables and transactions.
+
+```{r}
+xml<- load_xml(folder = "E:/test",
+               country_sel = c("PL","FR"),
+               table_sel = "T1002",
+               sto_sel = c("EMP","SAL"))
+
+#print the number of rows
+cat(prettyNum(nrow(xml)))
+
+xml %>% select(country,table,sto) %>% unique()
+```
+
+Or filter by date (minimum or maximum creation date)
+
+```{r}
+xml<- load_xml(folder = "E:/test",
+               time_min = "2022-05-01")
+#print the number of rows
+cat(prettyNum(nrow(xml)))
+
+xml %>% select(country,table) %>% unique()
+
+```
+
+The final argument serves to remove duplicated observations (values that have not changed in newer files). We can compare both options.
+
+```{r}
+xml<- load_xml(folder = "E:/test",
+               country_sel = "PL",
+               table_sel = "T1001")
+#print the number of rows
+cat(prettyNum(nrow(xml)))
+
+xml_c<- load_xml(folder = "E:/test",
+               country_sel = "PL",
+               table_sel = "T1001",
+               consolidate = TRUE)
+#print the number of rows
+cat(prettyNum(nrow(xml_c)))
+```
+
+## Convert* functions
+
+There are, for the moment, two conversion functions. `convert_anything()` is a wrapper of {rio} that converts between file types. We have this
+
+```{r}
+list.files("E:/test/")
+convert_anything("E:/test","xml","csv")
+convert_anything("E:/test","csv","parquet")
+list.files("E:/test/")
+
+```
+
+`convert_eurobase_codes()` facilitates the comparison between input data with data from eurobase. Column names (na item is converted in sto) and codes (PAID becomes D, G-I becomes GTI). The only argument of the function is the data.frame to convert.
+
+## eurostat* functions
+
+There are three functions 
+

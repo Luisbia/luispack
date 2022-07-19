@@ -1,4 +1,3 @@
-
 #' Color scale constructor for eurostat colors
 #'
 #' @param palette Character name of palette in luis_palettes
@@ -6,8 +5,8 @@
 #' @param reverse Boolean indicating whether the palette should be reversed
 #' @param ... Additional arguments passed to discrete_scale() or
 #'            scale_color_gradientn(), used respectively when discrete is TRUE or FALSE
-#'
 #' @export scale_colour_eurostat
+
 scale_colour_eurostat <- function(palette = "new", discrete = TRUE, reverse = FALSE, ...) {
   # list of named colours
   eurostat_colours <- c('EU Blue' = "#0E47CB",
@@ -100,9 +99,7 @@ scale_colour_eurostat <- function(palette = "new", discrete = TRUE, reverse = FA
 #' @param reverse Boolean indicating whether the palette should be reversed
 #' @param ... Additional arguments passed to discrete_scale() or
 #'            scale_fill_gradientn(), used respectively when discrete is TRUE or FALSE
-#'
 #' @export scale_fill_eurostat
-
 scale_fill_eurostat <- function(palette = "new", discrete = TRUE, reverse = FALSE, ...) {
   # list of named colours
   eurostat_colours <- c('EU Blue' = "#0E47CB",

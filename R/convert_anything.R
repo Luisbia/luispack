@@ -25,6 +25,14 @@ convert_anything<- function(dir, origin, dest, recursive = FALSE){
                             pattern = glob2rx(paste0("*",origin,"$")),
                             full.names = TRUE,
                             recursive=recursive)
+if (origin == "xml"){
+  convert_xml <- function(file) {
+    data <- readsdmx::read_sdmx(file)
+    export(data,file=stringr::str_replace(paste0(file),paste0(origin,"$"),paste0(dest)))
+  }
+
+  purrr::walk(list_files, convert_xml)
+} else{
 
   convert <- function(file) {
     data <- rio::import(file)
@@ -33,3 +41,4 @@ convert_anything<- function(dir, origin, dest, recursive = FALSE){
 
   purrr::walk(list_files, convert)
 }
+  }

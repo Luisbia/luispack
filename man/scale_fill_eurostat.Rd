@@ -13,8 +13,7 @@ scale_fill_eurostat(palette = "new", discrete = TRUE, reverse = FALSE, ...)
 
 \item{reverse}{Boolean indicating whether the palette should be reversed}
 
-\item{...}{Additional arguments passed to discrete_scale() or
-scale_fill_gradientn(), used respectively when discrete is TRUE or FALSE}
+\item{...}{Additional arguments to pass to colorRampPalette()}
 }
 \description{
 Fill scale constructor for eurostat colors
