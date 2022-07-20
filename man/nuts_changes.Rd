@@ -3,7 +3,7 @@
 \docType{data}
 \name{nuts_changes}
 \alias{nuts_changes}
-\title{Historical canges of NUTS on a tidy way}
+\title{Historical changes of NUTS on a tidy way}
 \format{
 A data frame with 3097 rows and 22 variables:
 \describe{
@@ -38,6 +38,6 @@ A data frame with 3097 rows and 22 variables:
 nuts_changes
 }
 \description{
-Historical canges of NUTS on a tidy way
+Historical changes of NUTS on a tidy way
 }
 \keyword{datasets}

@@ -26,11 +26,11 @@ load_xml(
 
 \item{unit_sel}{Unit to look for ("XDC", c("XDC","PC"))}
 
+\item{time_min}{Date from where to look for ("2020-01-01").}
+
+\item{time_max}{Date where to stop looking for ("2022-01-01").}
+
 \item{consolidate}{TRUE to remove duplicated values, FALSE (default) to keep them all}
-
-\item{min_time}{Date from where to look for ("2020-01-01").}
-
-\item{max_time}{Date where to stop looking for ("2022-01-01").}
 }
 \value{
 a data frame

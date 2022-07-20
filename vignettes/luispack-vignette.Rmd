@@ -17,13 +17,14 @@ knitr::opts_chunk$set(
 The source files to install the package are stored in the U: drive and can be installed as follows:
 
 ```{r setup, eval=FALSE}
-install.packages("U:/03_Regional Accounts/03D_Data Production/2022/R/luispack_0.0.0.1.tar.gz", type = "source")
+install.packages("U:/03_Regional Accounts/03D_Data Production/2022/R/luispack_0.0.0.1.tar.gz", type = "source",
+repos = NULL)
 ```
 
 
 {luispack} consist of a series of `load*`, `get*`, `convert*`, `check*`, `report*` and other miscellaneous functions and data that are being slowly ported, and being made more generic, from existing scripts. It is still WIP and will not be finalised until the last quarter of 2022.
 
-The overall aim is to centralised as much as possible what has been developed internally in the latest years, document it and simplify the user experience. 
+The overall aim is to centralise as much as possible what has been developed internally in the latest years, document it and simplify the user experience. 
 
 While the functions have become more general, they cannot be used directly for other National Accounts processes, but with limited efforts they could be adapted to work on them.
 
@@ -34,11 +35,11 @@ ls("package:luispack")
 
 ## Load* functions
 
-The REGACC team has created functions to load the most common input files used in the domain but it required certain R knowledge to adapt them for specific situations (one versus several files, one or several folders, full or partial tables, with or with changes). 
+The REGACC team has created functions to load the most common input files used in the domain but it required finding them and certain R knowledge to adapt them for specific situations (one versus several files, one or several folders, full or partial tables, with or with changes). 
 
-There are functions for xml, csv, matis, sent to eurobase and MDT files. While there are small variations between them because they use them for several purposes they are quite similar. We will look at some detail at `load_xml()`
+There are functions for xml, csv, matis, sent to eurobase and MDT files. While there are small variations between them because we use them for different purposes they are quite similar. We will look at some detail at `load_xml()`
 
-The documentation available in the package which can be found in the panel or typing `?load_xml` is
+The documentation is available in the package which can be found in the panel or typing `?load_xml`.
 
 ```{r, eval=FALSE}
 load_xml(
@@ -71,10 +72,10 @@ Unit to look for ("XDC", c("XDC","PC"))
 **consolidate**	
 TRUE to remove duplicated values, FALSE (default) to keep them all
 
-min_time	
+**min_time**	
 Date from where to look for ("2020-01-01").
 
-max_time	
+**max_time**	
 Date where to stop looking for ("2022-01-01").
 
 If we execute `load_xml()` it will look for all the files (any country and table) in the server that have not been loaded in FameFeed with the only condition that they have been created after the first of October of 2021. 
@@ -83,7 +84,7 @@ If we change the **folder** parameter it will look (not recursively) in that fol
 
 ```{r,warning=FALSE, message=FALSE}
 library(tidyverse)
-xml<- load_xml("E:/test")
+xml<- load_xml("D:/test")
 
 #print the number of rows
 cat(prettyNum(nrow(xml)))
@@ -94,7 +95,7 @@ xml %>% select(country,table) %>% unique()
 We can select one or several countries,tables and transactions.
 
 ```{r}
-xml<- load_xml(folder = "E:/test",
+xml<- load_xml(folder = "D:/test",
                country_sel = c("PL","FR"),
                table_sel = "T1002",
                sto_sel = c("EMP","SAL"))
@@ -108,7 +109,7 @@ xml %>% select(country,table,sto) %>% unique()
 Or filter by date (minimum or maximum creation date)
 
 ```{r}
-xml<- load_xml(folder = "E:/test",
+xml<- load_xml(folder = "D:/test",
                time_min = "2022-05-01")
 #print the number of rows
 cat(prettyNum(nrow(xml)))
@@ -120,13 +121,13 @@ xml %>% select(country,table) %>% unique()
 The final argument serves to remove duplicated observations (values that have not changed in newer files). We can compare both options.
 
 ```{r}
-xml<- load_xml(folder = "E:/test",
+xml<- load_xml(folder = "D:/test",
                country_sel = "PL",
                table_sel = "T1001")
 #print the number of rows
 cat(prettyNum(nrow(xml)))
 
-xml_c<- load_xml(folder = "E:/test",
+xml_c<- load_xml(folder = "D:/test",
                country_sel = "PL",
                table_sel = "T1001",
                consolidate = TRUE)
@@ -136,19 +137,184 @@ cat(prettyNum(nrow(xml_c)))
 
 ## Convert* functions
 
-There are, for the moment, two conversion functions. `convert_anything()` is a wrapper of {rio} that converts between file types. We have this
+There are, for the moment, two conversion functions. `convert_anything()` is a wrapper of {rio} that converts between file types. We have these files in a folder.
 
 ```{r}
-list.files("E:/test/")
-convert_anything("E:/test","xml","csv")
-convert_anything("E:/test","csv","parquet")
-list.files("E:/test/")
+list.files("D:/test/")
+```
+
+And we will convert them first as csv and them from csv to parquet.
+```{r}
+convert_anything("D:/test","xml","csv")
+convert_anything("D:/test","csv","parquet")
+list.files("D:/test/")
 
 ```
 
-`convert_eurobase_codes()` facilitates the comparison between input data with data from eurobase. Column names (na item is converted in sto) and codes (PAID becomes D, G-I becomes GTI). The only argument of the function is the data.frame to convert.
+`convert_eurobase_codes()` facilitates the comparison between input data and data from eurobase. Column names (na_item is converted in sto) and codes (PAID becomes D, G-I becomes GTI) are converted. The only argument of the function is the data frame to convert.
 
 ## eurostat* functions
 
-There are three functions 
+There are three functions to get GDP from Eurobase straight into R (quarterly, annual and regional) with some familiar by now arguments mainly powered by the library {eurostat}.
+
+```{r}
+gdp<- get_annual_GDP(
+  na_item_sel = "B1GQ",
+  unit_sel = c("CP_MEUR", "CP_MPPS_EU27_2020"),
+  min_time = "2021-01-01"
+)
+head(gdp)
+```
+
+`eurostat_find` has several utilities. We can get information on the datasets by code, description or date. We can get some information about **nama_10r** datasets
+
+```{r}
+eurostat_find(sel_code="nama_10r")
+```
+
+Which Eurobase tables include regional in their description?
+
+```{r}
+eurostat_find(sel_desc="regional") %>% select(title,code)
+```
+
+Which datasets were updated after 15/07/2022?
+
+```{r}
+eurostat_find(sel_update= "2022-07-15") %>% head()
+```
+
+## check* functions
+
+We will port here (it is easy and will be done at the end) some checks we do routinely. For example for checking the NACE consistency we will use `check_NACE()`. The function requires a data frame with the NACE codes (with the labels  in input files except _T which should be replaced by TOTAL) in columns and we can set absolute and relative thresholds (1 and 0.05 are the default). 
+
+```{r, warning=FALSE, message=FALSE}
+df <- load_csv(
+folder = "D:/data/REGACC/csv",
+country_sel = "AT",
+time_min = "2021-12-01"
+) %>%
+ dplyr::filter(table_identifier == "T1002") %>%
+ dplyr::select(ref_area, sto, activity, unit_measure, time_period, obs_value) %>%
+ tidyr::pivot_wider(
+   names_from = activity,
+   values_from = obs_value
+ ) %>%
+ rename(TOTAL = "_T")
+
+check_NACE(df) %>% select(1:4,24:31)
+```
+
+Austria rounds the hours worked.
+
+```{r}
+check_NACE(df, ths_abs = 10, ths_rel = 0.01 ) %>% select(1:4,24:31)
+```
+
+## Attached datasets and other useful info
+
+Many times we need to get access to external data sets (data for NQR), classifications (NUTS) or labels for our codes. Several data sets are included in the package and they can be easily accessed just typing their name (labels, NQR_data,NUTS_2021, nuts_changes,regional_gdp_vintages).
+
+Data for the NQR data analysis.
+
+```{r}
+AT11<- NQR_data %>% filter(geo=="AT11")
+head(AT11)
+```
+
+What were the NUTS changes in 2021 at nuts level 2?
+
+```{r}
+nuts_changes %>% filter(!is.na(change_2021) & typology =="nuts_level_2") %>% select(code_2016,code_2021,change_2021)
+```
+
+
+## Plotting functions
+
+A usual headache is to be consistent in the charts we produce for countries, documents, presentations.... Some regacc* functions should make it easier. `regacc_line_chart()`
+
+```{r, fig.height=7, fig.width=9}
+data<- NQR_data %>% filter(geo=="AT11") %>% 
+  mutate(vintage=as.factor(vintage))
+
+regacc_linechart(dat = data, #data
+                 hor = time, # horizontal axis
+                 ver = values, # vertical axis
+                 grp = vintage, # group
+                 clr = vintage, # colour
+                 fac = na_item) # small multiples
+  
+```
+
+While some default are chosen they can be modified with optional parameters.
+
+```{r, fig.height=7, fig.width=9}
+data<- data %>% 
+  filter(na_item =="B1G" & time >=2012)
+
+regacc_linechart(dat = data, 
+                 hor = time, 
+                 ver = values, 
+                 grp = vintage, 
+                 clr = vintage,
+                 leg = FALSE,
+                 fsz = 18,
+                 ffa = "sans",
+                 lsz = 1,
+                 hbr =2,
+                 vbr =5,
+                 acc = 0.1
+                 )+
+  ggtitle("AT11: B1G revisions")
+```
+
+Most common charts (and maybe maps) will be rolled-out soon.
+
+```{r fig.height=7, fig.width=9}
+ df<- NQR_data %>%
+  filter(Country =="AT" & vintage =="2021" & na_item %in% c("B1G","B6N")) %>%
+  pivot_wider(names_from = na_item,
+              values_from = values)
+
+regacc_scatter(dat=df,
+               hor=B1G,
+               ver=B6N,
+               grp=geo,
+               clr=geo,
+               leg = FALSE,
+               fac = geo,
+               psz = 2,
+               hbr=2,
+               vbr=2,
+               fsz=12)
+```
+
+
+## Report functions
+
+These are functions that create some kind of report. For example, `report_transmission()` creates a table with the files transmitted by countries that could serve to fill-in the NQR report or the reports we present at the EG RA.
+
+```{r}
+report_transmission("D:/03_Regional Accounts/03D_Data Production/2021") %>% 
+  select(-value) %>% 
+  head()
+```
+
+`report_completeness` creates for a data set the completeness ratio as reported in the NQR and provides an interactive table with the missing series (those with no values including Ls and Ms).
+
+```{r}
+ df<- load_xml("D:/regacc/data/input/xml",
+ country_sel = "SI",
+ table_sel = c("T1002"),
+ time_min = "2021-11-01")
+
+ report_completeness (df,table_sel = c("T1002"))
+```
+
+
+## Miscellaneous 
+
+Some little functions to export data for reports as interactive HTML tables `show_DT()` or to export data to Excel `show_in_excel()`. `check_packages()`verifies the needed libraries are in the PC and installs them if needed.  
+
+
 

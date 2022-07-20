@@ -1,4 +1,4 @@
-#' Historical canges of NUTS on a tidy way
+#' Historical changes of NUTS on a tidy way
 #'
 #'
 #' @format A data frame with 3097 rows and 22 variables:

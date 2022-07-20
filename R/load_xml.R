@@ -13,8 +13,8 @@
 #' @param table_sel table or tables to look for ("T1001", c("T1001","T1002"))
 #' @param sto_sel NA item to look for ("B1G", c("B1G","EMP"))
 #' @param unit_sel Unit to look for ("XDC", c("XDC","PC"))
-#' @param min_time Date from where to look for ("2020-01-01").
-#' @param max_time Date where to stop looking for ("2022-01-01").
+#' @param time_min Date from where to look for ("2020-01-01").
+#' @param time_max Date where to stop looking for ("2022-01-01").
 #' @param consolidate TRUE to remove duplicated values, FALSE (default) to keep them all
 #'
 #' @export load_xml
