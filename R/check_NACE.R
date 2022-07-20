@@ -2,17 +2,17 @@
 #'
 #' @param df the data frame with the data. It should have the following column:TOTAL,A,BTE,F,GTI,GTJ,J,K,L,M_N,KTN,OTQ,RTU,OTU
 #' @param ths_abs absolute threshold. Differences below the threshold are ignored.
-#' @param ths_rel relative threshold. Differences below the threshold are ignored.
+#' @param ths_rel relative threshold. Differences below the threshold are ignored (1=1%)
 #'
 #' @return a dataframe. If all pass are passed it will be empty.
 #' @export check_NACE
 #'
 #' @examples
 #'library(tidyverse)
-#' df <- regacc_load_all_csv(
+#' df <- regacc_load_csv(
 #'folder = "D:/data/REGACC/csv",
-#'geo = c("AT"),
-#'time = "2021-12-01"
+#'country_sel = c("AT"),
+#'time_min = "2021-12-01"
 #') %>%
 #'  dplyr::filter(table_identifier == "T1002") %>%
 #'  dplyr::select(ref_area, sto, activity, unit_measure, time_period, obs_value) %>%
@@ -24,7 +24,7 @@
 #'
 #'check_NACE(df, ths_abs = 1, ths_rel = 0.5)
 
-check_NACE <- function(df, ths_abs = 1, ths_rel = 0.05) {
+check_NACE <- function(df, ths_abs = 1, ths_rel = 0.5) {
 
  check_packages()
 

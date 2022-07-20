@@ -144,6 +144,7 @@ list.files("D:/test/")
 ```
 
 And we will convert them first as csv and them from csv to parquet.
+
 ```{r}
 convert_anything("D:/test","xml","csv")
 convert_anything("D:/test","csv","parquet")
@@ -205,11 +206,25 @@ time_min = "2021-12-01"
 check_NACE(df) %>% select(1:4,24:31)
 ```
 
-Austria rounds the hours worked.
+Austria rounds the hours worked. If we set up a higher abs0lute threshold but a lower minimum relative threshold, the consistency rule is satisfied.
 
 ```{r}
-check_NACE(df, ths_abs = 10, ths_rel = 0.01 ) %>% select(1:4,24:31)
+check_NACE(df, ths_abs = 11, ths_rel = 0.1 ) %>% select(1:4,24:31)
 ```
+
+`check_NUTS` requires the data in rows and certain columns which will exist by default in any data we import.
+
+```{r}
+df <- load_csv(
+folder = "D:/data/REGACC/csv",
+country_sel = "AT",
+time_min = "2021-12-01"
+)
+
+check<-check_NUTS(df,ths_abs = 2, ths_rel = 0) %>% head()
+```
+
+
 
 ## Attached datasets and other useful info
 
