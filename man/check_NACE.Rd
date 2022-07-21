@@ -7,7 +7,7 @@
 check_NACE(df, ths_abs = 1, ths_rel = 0.5)
 }
 \arguments{
-\item{df}{the data frame with the data. It should have the following column:TOTAL,A,BTE,F,GTI,GTJ,J,K,L,M_N,KTN,OTQ,RTU,OTU}
+\item{df}{the data frame with the data.}
 
 \item{ths_abs}{absolute threshold. Differences below the threshold are ignored.}
 
@@ -24,15 +24,7 @@ library(tidyverse)
 df <- regacc_load_csv(
 folder = "D:/data/REGACC/csv",
 country_sel = c("AT"),
-time_min = "2021-12-01"
-) \%>\%
- dplyr::filter(table_identifier == "T1002") \%>\%
- dplyr::select(ref_area, sto, activity, unit_measure, time_period, obs_value) \%>\%
- tidyr::pivot_wider(
-   names_from = activity,
-   values_from = obs_value
- ) \%>\%
- rename(TOTAL = "_T")
+time_min = "2021-12-01")
 
 check_NACE(df, ths_abs = 1, ths_rel = 0.5)
 }

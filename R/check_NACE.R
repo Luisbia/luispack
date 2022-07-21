@@ -1,6 +1,6 @@
 #' Check NACE
 #'
-#' @param df the data frame with the data. It should have the following column:TOTAL,A,BTE,F,GTI,GTJ,J,K,L,M_N,KTN,OTQ,RTU,OTU
+#' @param df the data frame with the data.
 #' @param ths_abs absolute threshold. Differences below the threshold are ignored.
 #' @param ths_rel relative threshold. Differences below the threshold are ignored (1=1%)
 #'
@@ -12,21 +12,17 @@
 #' df <- regacc_load_csv(
 #'folder = "D:/data/REGACC/csv",
 #'country_sel = c("AT"),
-#'time_min = "2021-12-01"
-#') %>%
-#'  dplyr::filter(table_identifier == "T1002") %>%
-#'  dplyr::select(ref_area, sto, activity, unit_measure, time_period, obs_value) %>%
-#'  tidyr::pivot_wider(
-#'    names_from = activity,
-#'    values_from = obs_value
-#'  ) %>%
-#'  rename(TOTAL = "_T")
+#'time_min = "2021-12-01")
 #'
 #'check_NACE(df, ths_abs = 1, ths_rel = 0.5)
 
 check_NACE <- function(df, ths_abs = 1, ths_rel = 0.5) {
 
  check_packages()
+  df<- df %>%
+    mutate(activity=str_replace_all(activity,"_T","TOTAL")) %>%
+    tidyr::pivot_wider(names_from = activity,
+                       values_from = obs_value)
 
   if ("TOTAL" %in% colnames(df) &&
       "A" %in% colnames(df) &&

@@ -27,7 +27,7 @@ load_MDT <- function(folder, table_sel, country_sel){
   if (table_sel %in% tables){
 
       import_MDT<- function(file) {
-      df<-data.table::fread(file,fill = TRUE)%>%
+       data.table::fread(file,fill = TRUE)%>%
         .[,obs_decimals :=NULL] %>%
         .[, country := substr(geo, start = 1, stop = 2)] %>%
         .[, NUTS := as.factor(stringr::str_length(geo)-2)] %>%

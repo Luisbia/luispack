@@ -23,6 +23,7 @@
 check_NUTS <- function(data,ths_abs=2,ths_rel=0.05){
 
   check_packages()
+
 if ("T1200" %in% unique(df$table_identifier)){
   ### NUTS ----
 
