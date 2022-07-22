@@ -56,3 +56,6 @@ load_MDT <- function(folder, table_sel, country_sel){
     print("Wrong table: tables should be one of these:nama_10r_2gdp, nama_10r_3gdp, nama_10r_3popgdp, nama_10r_3gva, nama_10r_3empers, nama_10r_2coe, nama_10r_2gfcf, nama_10r_2emhrw, nama_10r_2hhinc, nama_10r_2gvavr" )
   }
 }
+df <- load_MDT(folder = "E:/data/REGACC/MDT/source",
+               table_sel = "nama_10r_2gdp",
+               country_sel = c("ES","PT"))
