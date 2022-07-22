@@ -1,7 +1,7 @@
 ---
-title: "luispack-vignette"
+titlD: "luispack-vignette"
 output: rmarkdown::html_vignette
-vignette: >
+vignettD: >
   %\VignetteIndexEntry{luispack-vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
@@ -84,7 +84,7 @@ If we change the **folder** parameter it will look (not recursively) in that fol
 
 ```{r,warning=FALSE, message=FALSE}
 library(tidyverse)
-xml<- load_xml("D:/test")
+xml<- load_xml("E:/test")
 
 #print the number of rows
 cat(prettyNum(nrow(xml)))
@@ -95,7 +95,7 @@ xml %>% select(country,table) %>% unique()
 We can select one or several countries,tables and transactions.
 
 ```{r}
-xml<- load_xml(folder = "D:/test",
+xml<- load_xml(folder = "E:/test",
                country_sel = c("PL","FR"),
                table_sel = "T1002",
                sto_sel = c("EMP","SAL"))
@@ -109,7 +109,7 @@ xml %>% select(country,table,sto) %>% unique()
 Or filter by date (minimum or maximum creation date)
 
 ```{r}
-xml<- load_xml(folder = "D:/test",
+xml<- load_xml(folder = "E:/test",
                time_min = "2022-05-01")
 #print the number of rows
 cat(prettyNum(nrow(xml)))
@@ -121,13 +121,13 @@ xml %>% select(country,table) %>% unique()
 The final argument serves to remove duplicated observations (values that have not changed in newer files). We can compare both options.
 
 ```{r}
-xml<- load_xml(folder = "D:/test",
+xml<- load_xml(folder = "E:/test",
                country_sel = "PL",
                table_sel = "T1001")
 #print the number of rows
 cat(prettyNum(nrow(xml)))
 
-xml_c<- load_xml(folder = "D:/test",
+xml_c<- load_xml(folder = "E:/test",
                country_sel = "PL",
                table_sel = "T1001",
                consolidate = TRUE)
@@ -140,15 +140,15 @@ cat(prettyNum(nrow(xml_c)))
 There are, for the moment, two conversion functions. `convert_anything()` is a wrapper of {rio} that converts between file types. We have these files in a folder.
 
 ```{r}
-list.files("D:/test/")
+list.files("E:/test/")
 ```
 
 And we will convert them first as csv and them from csv to parquet.
 
 ```{r}
-convert_anything("D:/test","xml","csv")
-convert_anything("D:/test","csv","parquet")
-list.files("D:/test/")
+convert_anything("E:/test","xml","csv")
+convert_anything("E:/test","csv","parquet")
+list.files("E:/test/")
 
 ```
 
@@ -187,26 +187,19 @@ eurostat_find(sel_update= "2022-07-15") %>% head()
 
 ## check* functions
 
-We will port here (it is easy and will be done at the end) some checks we do routinely. For example for checking the NACE consistency we will use `check_NACE()`. The function requires a data frame with the NACE codes (with the labels  in input files except _T which should be replaced by TOTAL) in columns and we can set absolute and relative thresholds (1 and 0.05 are the default). 
+We will port here (it is easy and will be done at the end) some checks we do routinely. For example for checking the NACE consistency we will use `check_NACE()`. 
 
 ```{r, warning=FALSE, message=FALSE}
 df <- load_csv(
-folder = "D:/data/REGACC/csv",
+folder = "E:/data/REGACC/csv",
 country_sel = "AT",
 time_min = "2021-12-01"
-) %>%
- dplyr::filter(table_identifier == "T1002") %>%
- dplyr::select(ref_area, sto, activity, unit_measure, time_period, obs_value) %>%
- tidyr::pivot_wider(
-   names_from = activity,
-   values_from = obs_value
- ) %>%
- rename(TOTAL = "_T")
+) 
 
 check_NACE(df) %>% select(1:4,24:31)
 ```
 
-Austria rounds the hours worked. If we set up a higher abs0lute threshold but a lower minimum relative threshold, the consistency rule is satisfied.
+Austria rounds the hours worked. If we set up a higher absolute threshold but a lower minimum relative threshold, the consistency rule is satisfied.
 
 ```{r}
 check_NACE(df, ths_abs = 11, ths_rel = 0.1 ) %>% select(1:4,24:31)
@@ -216,12 +209,12 @@ check_NACE(df, ths_abs = 11, ths_rel = 0.1 ) %>% select(1:4,24:31)
 
 ```{r}
 df <- load_csv(
-folder = "D:/data/REGACC/csv",
+folder = "E:/data/REGACC/csv",
 country_sel = "AT",
 time_min = "2021-12-01"
 )
 
-check<-check_NUTS(df,ths_abs = 2, ths_rel = 0) %>% head()
+check<-check_NUTS(df,ths_abs = 2, ths_rel = 0) 
 ```
 
 
@@ -310,7 +303,7 @@ regacc_scatter(dat=df,
 These are functions that create some kind of report. For example, `report_transmission()` creates a table with the files transmitted by countries that could serve to fill-in the NQR report or the reports we present at the EG RA.
 
 ```{r}
-report_transmission("D:/03_Regional Accounts/03D_Data Production/2021") %>% 
+report_transmission("E:/03_Regional Accounts/03D_Data Production/2021") %>% 
   select(-value) %>% 
   head()
 ```
@@ -318,7 +311,7 @@ report_transmission("D:/03_Regional Accounts/03D_Data Production/2021") %>%
 `report_completeness` creates for a data set the completeness ratio as reported in the NQR and provides an interactive table with the missing series (those with no values including Ls and Ms).
 
 ```{r}
- df<- load_xml("D:/regacc/data/input/xml",
+ df<- load_xml("E:/regacc/data/input/xml",
  country_sel = "SI",
  table_sel = c("T1002"),
  time_min = "2021-11-01")

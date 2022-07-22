@@ -101,7 +101,7 @@ regacc_linechart <- function(dat,
       ...)}
 
   plot <- ggplot(dat) +
-    geom_smooth(aes(!!hor, !!ver, group = !!grp, colour = !!clr),size = lsz)+
+    geom_line(aes(!!hor, !!ver, group = !!grp, colour = !!clr),size = lsz)+
     theme_linechart()+
     scale_x_continuous(labels = scales::label_number(accuracy = 1),
                        breaks = scales::breaks_pretty(n=hbr),
