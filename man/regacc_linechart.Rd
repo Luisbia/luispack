@@ -17,7 +17,9 @@ regacc_linechart(
   lsz = 0.8,
   hbr = 3,
   vbr = 4,
-  acc = 1
+  acc = 1,
+  exm = 0,
+  exa = 0
 )
 }
 \arguments{
@@ -46,6 +48,10 @@ regacc_linechart(
 \item{vbr}{parameter for the number of vertical breaks, input for scales::break_pretty}
 
 \item{acc}{number of decimals for Y axis (0.1 means one decimal)}
+
+\item{exm}{multiplicative parameter for the scale limits}
+
+\item{exa}{additive parameter for the scale limits}
 }
 \value{
 a ggplot

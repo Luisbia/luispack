@@ -9,7 +9,7 @@ load_MDT(folder, table_sel, country_sel)
 \arguments{
 \item{folder}{Path to the location of the files}
 
-\item{table_sel}{(Unique) table to load (nama_10r_2gdp, nama_10r_3gdp, nama_10r_3popgdp, nama_10r_3gva, nama_10r_3empers, nama_10r_2coe, nama_10r_2gfcf, nama_10r_2emhrw, nama_10r_2hhinc, nama_10r_2gvavr).}
+\item{table_sel}{table(s) to load (nama_10r_2gdp, nama_10r_3gdp, nama_10r_3popgdp, nama_10r_3gva, nama_10r_3empers, nama_10r_2coe, nama_10r_2gfcf, nama_10r_2emhrw, nama_10r_2hhinc, nama_10r_2gvavr).}
 
 \item{country_sel}{Filter for a particular country/ies.}
 }

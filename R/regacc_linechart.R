@@ -14,6 +14,8 @@
 #' @param hbr parameter for the number of horizontal breaks, input for scales::break_pretty
 #' @param vbr parameter for the number of vertical breaks, input for scales::break_pretty
 #' @param acc number of decimals for Y axis (0.1 means one decimal)
+#' @param exm multiplicative parameter for the scale limits
+#' @param exa additive parameter for the scale limits
 #'
 #' @return a ggplot
 #' @export regacc_linechart
@@ -42,7 +44,10 @@ regacc_linechart <- function(dat,
                              lsz = 0.8,
                              hbr = 3,
                              vbr = 4,
-                             acc = 1) {
+                             acc = 1,
+                             exm = 0,#default in ggplot 0.05
+                             exa = 0) # default in ggplot 0
+{
   hor <- enquo(hor)
   ver <- enquo(ver)
   grp <- enquo(grp)
@@ -100,12 +105,12 @@ regacc_linechart <- function(dat,
 
       ...)}
 
+
   plot <- ggplot(dat) +
-    geom_line(aes(!!hor, !!ver, group = !!grp, colour = !!clr),size = lsz)+
-    theme_linechart()+
+    geom_line(aes(!!hor, !!ver, group = !!grp, colour = !!clr),size = lsz)+ theme_linechart()+
     scale_x_continuous(labels = scales::label_number(accuracy = 1),
                        breaks = scales::breaks_pretty(n=hbr),
-                       expand = c(0,0))+
+                       expand = c(exm,exa))+
     scale_y_continuous(labels = scales::label_number(accuracy = acc),
                        breaks = scales::breaks_pretty(n=vbr))+
     scale_colour_eurostat()+
